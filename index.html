@@ -1,496 +1,346 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-<meta charset="utf-8" />
-<title>支援內政部消防署一年期救助教官意願調查表</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-crossorigin="anonymous"
-/>
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.7/dist/signature_pad.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<style>
-html,
-body {
-min-height: 100%;
-background: linear-gradient(135deg, #4A5568, #A0AEC0);
-font-family: "Microsoft JhengHei", Arial, sans-serif;
-margin: 0;
-padding: 0;
-overscroll-behavior-y: contain;
-}
-.container {
-max-width: 670px;
-margin: 36px auto 30px auto;
-background: rgba(255, 255, 255, 0.97);
-border-radius: 32px;
-box-shadow: 0 15px 48px rgba(0, 0, 0, 0.15);
-overflow: visible;
-padding-bottom: 30px;
-}
-.headerbox {
-background: linear-gradient(100deg, #2c3e50 40%, #e67e22 100%);
-color: #fff;
-border-top-left-radius: 56px;
-border-top-right-radius: 56px;
-border-bottom-left-radius: 24px;
-border-bottom-right-radius: 24px;
-padding: 34px 22px 26px 22px;
-text-align: center;
-box-shadow: 0 2px 24px #e67e2240;
-margin: 18px 22px 0 22px;
-position: relative;
-z-index: 1;
-}
-.headerbox h1 {
-font-size: 1.95rem;
-margin: 0 0 15px 0;
-font-weight: 900;
-letter-spacing: 1.5px;
-}
-.headerbox p {
-font-size: 1.15rem;
-margin: 0;
-line-height: 1.7;
-}
-.form-title {
-font-size: 1.14rem;
-text-align: center;
-color: #2c3e50;
-font-weight: 700;
-margin: 32px 0 19px 0;
-}
-.content {
-padding: 0 30px 0 30px;
-}
-form {
-width: 100%;
-margin: 0 auto;
-}
-.form-group {
-margin-bottom: 19px;
-}
-.form-group label {
-font-weight: 700;
-display: block;
-margin-bottom: 7px;
-color: #2c3e50;
-}
-.form-group input,
-.form-group select {
-width: 100%;
-padding: 14px;
-font-size: 1.11rem;
-border-radius: 10px;
-border: 1.3px solid #b2bdd2;
-background: #f7fafc;
-box-sizing: border-box;
-}
-.form-group input:focus {
-border-color: #e67e22;
-outline: none;
-}
-.radio-group {
-display: flex;
-gap: 35px;
-margin: 7px 0 0 2px;
-}
-.radio-option {
-display: flex;
-align-items: center;
-gap: 7px;
-font-weight: 700;
-font-size: 1.09rem;
-color: #2c3e50;
-}
-.signature-section {
-margin: 36px 0 16px 0;
-}
-.signature-title {
-text-align: center;
-margin-bottom: 13px;
-color: #e67e22;
-font-size: 1.15rem;
-font-weight: 600;
-letter-spacing: 0.5px;
-}
-.canvas-container {
-border: 2.5px dashed #b1b7c6;
-border-radius: 18px;
-background: #f5faff;
-position: relative;
-overflow: hidden;
-margin-bottom: 15px;
-/* <<< 第一道防線：縮小簽名板預設高度 >>> */
-height: 240px; 
-box-shadow: 0 2px 14px #e1e7f4a8;
-box-sizing: border-box;
-}
-#signatureCanvas {
-width: 100%;
-height: 100%;
-display: block;
-cursor: crosshair;
-background: #fff;
-touch-action: none;
-border-radius: 13px;
-}
-.canvas-placeholder {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-color: #aaa;
-font-size: 1.18rem;
-pointer-events: none;
-text-align: center;
-z-index: 0;
-user-select: none;
-opacity: 0.85;
-}
-.controls {
-display: flex;
-gap: 19px;
-justify-content: center;
-margin-top: 9px;
-margin-bottom: 7px;
-}
-.btn {
-padding: 16px 0;
-border: none;
-border-radius: 36px;
-font-size: 1.13rem;
-font-weight: 700;
-cursor: pointer;
-transition: all 0.15s;
-display: flex;
-align-items: center;
-gap: 10px;
-min-width: 142px;
-width: 45%;
-justify-content: center;
-letter-spacing: 1px;
-box-shadow: 0 2px 18px #28dfbd22;
-}
-.btn-clear {
-background: linear-gradient(135deg, #ff6b6b, #ffb36b);
-color: #fff;
-}
-.btn-submit {
-background: linear-gradient(135deg, #2c3e50, #5a6878);
-color: #fff;
-}
-.btn:disabled {
-cursor: not-allowed;
-background: #aaa;
-}
-.status {
-display: none;
-text-align: center;
-margin-top: 34px;
-}
-.status-success {
-background: linear-gradient(135deg, #d4edda, #c3e6cb);
-color: #155724;
-padding: 27px 16px 17px 16px;
-border-radius: 14px;
-}
-.status-error {
-background: linear-gradient(135deg, #fce8e6, #fbd4d1);
-color: #c5221f;
-padding: 27px 16px 17px 16px;
-border-radius: 13px;
-}
-.spacer {
-height: 92px;
-width: 100%;
-}
-@media (max-width: 900px) {
-.container { max-width: 99vw; border-radius: 0; margin: 0; }
-.headerbox { border-top-left-radius: 36px; border-top-right-radius: 36px; border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; margin: 0; }
-.content { padding: 0 5vw; }
-.btn { font-size: 1.04rem; }
-/* <<< 第一道防線：同步縮小中等螢幕尺寸 >>> */
-.canvas-container { height: 220px; }
-}
-@media (max-width: 540px) {
-.headerbox { padding: 22px 2vw 15px 2vw; }
-.headerbox h1 { font-size: 1.5rem; }
-.content { padding: 0 2vw; }
-.btn { padding: 13px 0; min-width: 108px; }
-/* <<< 第一道防線：同步縮小手機螢幕尺寸 >>> */
-.canvas-container { height: 200px; }
-}
-</style>
-</head>
-<body>
-<div class="container">
-<div class="headerbox">
-<h1>
-<i class="fas fa-file-alt"></i> 支援內政部消防署一年期救助教官意願調查表
-</h1>
-<p>請正確填寫下列表單並簽名，點「送出」即可產生 PDF 並自動寄送</p>
-</div>
-<div class="content">
-<div class="form-title">— 意願調查表填寫 —</div>
-<form id="agreementForm" autocomplete="off">
-<div class="form-group">
-<label for="unit">單位 *</label>
-<input type="text" id="unit" required placeholder="請輸入您的服務單位" />
-</div>
-<div class="form-group">
-<label for="jobTitle">職稱 *</label>
-<input type="text" id="jobTitle" required placeholder="請輸入您的職稱" />
-</div>
-<div class="form-group">
-<label for="name">姓名 *</label>
-<input type="text" id="name" required placeholder="請輸入您的姓名" />
-</div>
-<div class="form-group">
-<label for="email">公務信箱 *</label>
-<input type="email" id="email" required placeholder="ex1234@gov.taipei" />
-</div>
-<div class="form-group">
-<label for="fillTime">填寫時間 *</label>
-<input type="datetime-local" id="fillTime" required />
-</div>
-<div class="form-group">
-<label>是否有意願支援一年期救助教官 *</label>
-<div class="radio-group">
-<label class="radio-option"><input type="radio" name="willingness" value="是，我有意願" required checked />是，我有意願</label>
-<label class="radio-option"><input type="radio" name="willingness" value="否，我無意願" />否，我無意願</label>
-</div>
-</div>
-<div class="signature-section">
-<div class="signature-title">本人簽名 *</div>
-<div class="canvas-container" style="position: relative">
-<canvas id="signatureCanvas"></canvas>
-<div class="canvas-placeholder" id="canvasPlaceholder">
-<i class="fas fa-pen"></i> 請在此區域內簽名
-</div>
-</div>
-<div class="controls">
-<button class="btn btn-clear" type="button" id="clearBtn">
-<i class="fas fa-eraser"></i> 清除簽名
-</button>
-<button class="btn btn-submit" type="submit">
-<i class="fas fa-paper-plane"></i> 送出調查表
-</button>
-</div>
-</div>
-</form>
-<div class="status status-success" id="successMsg">
-<i class="fas fa-check-circle" style="font-size: 2rem"></i>
-<div style="font-weight: 700; font-size: 1.1rem; margin-top: 6px">
-調查表成功送出，PDF 已自動寄到管理員信箱！
-</div>
-<div style="margin: 10px 0 0 0; font-size: 0.98rem">
-感謝您的填寫。
-</div>
-</div>
-<div class="status status-error" id="errorMsg">
-<i class="fas fa-exclamation-triangle" style="font-size: 2rem"></i>
-<div style="font-weight: 700; font-size: 1.08rem; margin-top: 5px">
-送出失敗
-</div>
-<div id="errDetail" style="margin-top: 7px"></div>
-</div>
-<div class="spacer"></div>
-</div>
-</div>
-<script>
-// 使用此問卷指定的 Webhook URL
-const WEBHOOK_URL = "https://n8n-emculoyh.ap-northeast-1.clawcloudrun.com/webhook/fire-sign-2";
-const canvas = document.getElementById("signatureCanvas");
-let signaturePad;
-
-function resizeCanvas() {
-const container = canvas.parentElement;
-const ratio = Math.max(window.devicePixelRatio || 1, 1);
-const oldData = signaturePad ? signaturePad.toData() : null;
-const containerStyle = getComputedStyle(container);
-const newWidth = parseFloat(containerStyle.width);
-const newHeight = parseFloat(containerStyle.height);
-canvas.width = newWidth * ratio;
-canvas.height = newHeight * ratio;
-canvas.style.width = newWidth + "px";
-canvas.style.height = newHeight + "px";
-const ctx = canvas.getContext("2d");
-ctx.setTransform(1, 0, 0, 1, 0, 0);
-ctx.scale(ratio, ratio);
-if (signaturePad) {
-signaturePad.clear();
-}
-signaturePad = new SignaturePad(canvas, { backgroundColor: "#fff", penColor: "#222" });
-if (oldData) {
-signaturePad.fromData(oldData);
-}
-signaturePad.addEventListener("beginStroke", () => {
-document.getElementById("canvasPlaceholder").style.display = "none";
-});
-if (signaturePad.isEmpty()) {
-document.getElementById("canvasPlaceholder").style.display = "block";
-} else {
-document.getElementById("canvasPlaceholder").style.display = "none";
-}
-}
-window.addEventListener("DOMContentLoaded", () => {
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-document.getElementById("clearBtn").onclick = () => {
-signaturePad.clear();
-document.getElementById("canvasPlaceholder").style.display = "block";
-};
-setNow();
-});
-
-function setNow() {
-const now = new Date();
-const year = now.getFullYear();
-const month = String(now.getMonth() + 1).padStart(2, "0");
-const day = String(now.getDate()).padStart(2, "0");
-const hours = String(now.getHours()).padStart(2, "0");
-const minutes = String(now.getMinutes()).padStart(2, "0");
-document.getElementById("fillTime").value = `${year}-${month}-${day}T${hours}:${minutes}`;
-}
-
-// <<< 第二道防線：壓縮簽名檔本身的輔助函式 >>>
-function getCompressedSignature(quality = 0.85) {
-    if (signaturePad.isEmpty()) return null;
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d');
-    const originalCanvas = signaturePad.canvas;
-    tempCanvas.width = originalCanvas.width;
-    tempCanvas.height = originalCanvas.height;
-    tempCtx.fillStyle = '#fff';
-    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-    tempCtx.drawImage(originalCanvas, 0, 0);
-    return tempCanvas.toDataURL('image/jpeg', quality);
-}
-
-// <<< 第三道防線：自適應 PDF 產生函式 >>>
-async function generatePdfBlob(data, options) {
-    const preview = document.createElement("div");
-    preview.style.cssText = `box-sizing: border-box; width: 800px; padding: 60px; background: #fff; position: fixed; left: -9999px; top: -9999px; font-family: 'Helvetica', 'Arial', 'Microsoft JhengHei', sans-serif;`;
-
-    const willingnessColor = data.willingness === '是，我有意願' ? '#28a745' : '#d9534f';
-    const willingnessText = data.willingness;
-    const now = new Date();
-    const generatedTime = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-
-    // 確認 PDF 內的標題與主題顏色正確
-    preview.innerHTML = `
-        <div style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 30px;">
-            <h1 style="font-size: 26px; color: #333; margin: 0; font-weight: 900;">支援內政部消防署一年期救助教官</h1>
-            <h2 style="font-size: 30px; color: #e67e22; margin: 8px 0 0 0; font-weight: 900;">意願調查表</h2>
-        </div>
-        <div style="font-size: 18px; line-height: 2.5; color: #333; margin-top: 40px;">
-            <p><strong>單　　位：</strong> ${data.unit}</p><p><strong>職　　稱：</strong> ${data.jobTitle}</p>
-            <p><strong>姓　　名：</strong> ${data.name}</p><p><strong>公務信箱：</strong> ${data.email}</p>
-            <p><strong>填寫時間：</strong> ${data.fillTime.replace("T", " ")}</p>
-            <p><strong>支援意願：</strong> <span style="font-weight: bold; color: ${willingnessColor};">${willingnessText}</span></p>
-        </div>
-        <div style="margin-top: 60px;">
-            <p style="font-size: 18px; color: #333; margin-bottom: 15px;"><strong>本 人 簽 名：</strong></p>
-            <div id="signature-placeholder" style="display: inline-block; width: 300px; height: 150px;"></div>
-        </div>
-        <div style="text-align: right; margin-top: 70px; font-size: 14px; color: #777;">
-            <p style="margin: 0;">文件產生時間：${generatedTime}</p>
-        </div>`;
-    document.body.appendChild(preview);
-
-    const placeholder = preview.querySelector('#signature-placeholder');
-    const drawX = placeholder.offsetLeft * options.scale;
-    const drawY = placeholder.offsetTop * options.scale;
-    const drawWidth = placeholder.clientWidth * options.scale;
-    const drawHeight = placeholder.clientHeight * options.scale;
-
-    const canvasImg = await html2canvas(preview, { scale: options.scale, useCORS: true });
-    document.body.removeChild(preview);
-
-    const imgData = canvasImg.toDataURL("image/jpeg", options.quality);
-    const pdf = new window.jspdf.jsPDF({ orientation: "p", unit: "px", format: [canvasImg.width, canvasImg.height] });
-    pdf.addImage(imgData, "JPEG", 0, 0, canvasImg.width, canvasImg.height, undefined, 'FAST');
-    pdf.addImage(data.signatureJpeg, 'JPEG', drawX, drawY, drawWidth, drawHeight);
-
-    return pdf.output("blob");
-}
-
-document.getElementById("agreementForm").onsubmit = async function (e) {
-    e.preventDefault();
-    const submitBtn = document.querySelector('.btn-submit');
-    const originalBtnHTML = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 處理中...';
-    showMsg(null);
-
-    try {
-        const requiredFields = [{ id: 'unit', name: '單位' }, { id: 'jobTitle', name: '職稱' }, { id: 'name', name: '姓名' }, { id: 'email', name: '公務信箱' }];
-        for (const field of requiredFields) {
-            if (!document.getElementById(field.id).value) throw new Error(`請填寫「${field.name}」欄位`);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本關西互動行程</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
         }
-        if (signaturePad.isEmpty()) throw new Error("請務必在指定區域簽名");
-
-        const data = {
-            unit: document.getElementById("unit").value,
-            jobTitle: document.getElementById("jobTitle").value,
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            fillTime: document.getElementById("fillTime").value,
-            willingness: document.querySelector('input[name="willingness"]:checked').value,
-            signature: signaturePad.toDataURL(), 
-            signatureJpeg: getCompressedSignature(0.85)
-        };
-
-        const highQualityOptions = { scale: 1.2, quality: 0.9 };
-        const lowQualityOptions = { scale: 1.0, quality: 0.7 };
-        const MAX_SIZE_MB = 2;
-        let pdfBlob = await generatePdfBlob(data, highQualityOptions);
-        
-        if (pdfBlob.size > MAX_SIZE_MB * 1024 * 1024) {
-            console.warn(`PDF檔案過大(${(pdfBlob.size / 1024 / 1024).toFixed(2)}MB)，自動嘗試更高壓縮率...`);
-            pdfBlob = await generatePdfBlob(data, lowQualityOptions);
-            if (pdfBlob.size > MAX_SIZE_MB * 1024 * 1024) {
-                throw new Error(`PDF檔案過大(${(pdfBlob.size / 1024 / 1024).toFixed(2)}MB)，系統已盡力壓縮仍無法上傳。`);
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
             }
         }
+        
+        .nav-link {
+            @apply px-4 py-2 text-stone-700 rounded-lg hover:bg-stone-200 transition-colors duration-200;
+        }
+        .nav-link.active {
+            @apply bg-emerald-600 text-white shadow-md font-semibold;
+        }
+        .tab-button {
+            @apply px-4 py-2 rounded-t-lg text-lg font-medium text-stone-600 transition-all duration-200 border-b-2 border-transparent;
+        }
+        .tab-button.active {
+            @apply text-emerald-700 border-emerald-700;
+        }
+        .filter-button {
+            @apply px-4 py-1.5 text-sm rounded-full border border-stone-300 text-stone-700 hover:bg-stone-200 transition-all duration-200;
+        }
+        .filter-button.active {
+            @apply bg-emerald-600 text-white border-emerald-600;
+        }
+        .content-hidden {
+            @apply hidden;
+        }
+        .timeline-item {
+            @apply relative pl-8 sm:pl-10 pb-6;
+        }
+        .timeline-item:before {
+            @apply content-[''] absolute left-3 sm:left-4 top-1 w-2 h-2 rounded-full bg-emerald-500;
+        }
+        .timeline-item:after {
+            @apply content-[''] absolute left-[15.5px] sm:left-[19.5px] top-4 h-full w-0.5 bg-stone-300;
+        }
+        .timeline-item:last-child:after {
+            @apply h-0;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans">
+    <!-- Chosen Palette: Warm Neutral (Stone/White) with Emerald green and Stone brown accents -->
+    <!-- Application Structure Plan: The SPA uses a sticky top navigation bar ("行程總覽", "每日行程", "美食地圖", "購物天堂") to allow users to jump to different thematic sections. This structure is superior to the original linear PDF because the user's new request is about research (food/shopping). This design allows them to either view recommendations integrated into the "每日行程" (via a tabbed interface for Day 1-5) or browse all recommendations in a filterable database-like view ("美食地圖", "購物天堂"). This serves both planning and research user-goals effectively. JS handles the smooth-scrolling navigation, the daily tab switching, and the category filtering. -->
+    <!-- Visualization & Content Choices: 
+        - Itinerary Overview: HTML/Tailwind cards. Goal: Inform. Interaction: None. Justification: Clear, scannable summary of key data.
+        - Daily Itinerary: HTML/Tailwind Tabs. Goal: Organize. Interaction: Click tabs (Day 1-5) to show/hide daily plans. Justification: Manages a large amount of information cleanly without overwhelming the user.
+        - Daily Plan (Original): HTML/Tailwind vertical timeline. Goal: Show sequence. Interaction: Read. Justification: Visually represents the flow of a day clearly.
+        - Food/Shopping Recommendations: HTML/Tailwind Card Grids. Goal: Inform/Organize. Interaction: (In #food/#shopping sections) Filter buttons (onclick) toggle card visibility via JS based on `data-category`. Justification: This is the most effective way to present the newly researched data, allowing user-driven discovery and filtering (e.g., "Show me only Osaka Michelin").
+        - No charts are used as the source report is a qualitative itinerary, and no quantitative data is present that would benefit from charting.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
-        const formData = new FormData();
-        formData.append("unit", data.unit);
-        formData.append("jobTitle", data.jobTitle);
-        formData.append("name", data.name);
-        formData.append("email", data.email);
-        formData.append("fillTime", data.fillTime);
-        formData.append("willingness", data.willingness);
-        formData.append("signature", data.signature);
-        formData.append("file", pdfBlob, `${data.unit}${data.name}意願調查表.pdf`);
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+            <h1 class="text-2xl font-bold text-emerald-700">
+                🇯🇵 日本關西互動行程
+            </h1>
+            <div id="nav-links" class="flex flex-wrap gap-2 mt-2 sm:mt-0">
+                <a href="#overview" class="nav-link">行程總覽</a>
+                <a href="#daily" class="nav-link">每日行程</a>
+                <a href="#food" class="nav-link">美食地圖</a>
+                <a href="#shopping" class="nav-link">購物天堂</a>
+            </div>
+        </nav>
+    </header>
 
-        const resp = await fetch(WEBHOOK_URL, { method: "POST", body: formData });
-        if (!resp.ok) throw new Error("伺服器回應錯誤，請洽系統管理員");
+    <main class="max-w-6xl mx-auto p-4 sm:p-6 space-y-16">
+        
+        <section id="overview" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-stone-800 mb-6">✈️ 行程總覽</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <h3 class="text-xl font-semibold mb-3 text-emerald-700">航班資訊</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <strong class="text-stone-600">去程: 11/13 (四)</strong>
+                            <p>國泰航空 CX564</p>
+                            <p>11:15 (TPE T1) → 14:55 (KIX T1)</p>
+                        </div>
+                        <div>
+                            <strong class="text-stone-600">回程: 11/17 (一)</strong>
+                            <p>國泰航空 CX565</p>
+                            <p>16:15 (KIX T1) → 18:30 (TPE T1)</p>
+                        </div>
+                    </div>
+                </div>
 
-        showMsg(true);
-        document.getElementById("agreementForm").reset();
-        signaturePad.clear();
-        document.getElementById("canvasPlaceholder").style.display = 'block';
-        setNow();
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <h3 class="text-xl font-semibold mb-3 text-emerald-700">🏨 大阪住宿</h3>
+                    <p class="font-semibold">KOKO HOTEL Osaka Namba Sennichimae</p>
+                    <p class="text-sm text-stone-600">11/13 (四) - 11/15 (六)</p>
+                    <a href="https://maps.app.goo.gl/SqPadR866Dv4205ZA" target="_blank" class="text-emerald-600 hover:underline text-sm break-all">
+                        https://maps.app.goo.gl/SqPadR866Dv4205ZA
+                    </a>
+                </div>
 
-    } catch (err) {
-        showMsg(false, err.message || "調查表送出失敗，請再試一次");
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnHTML;
-    }
-};
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
+                    <h3 class="text-xl font-semibold mb-3 text-emerald-700">🏨 京都住宿</h3>
+                    <p class="font-semibold">Hotel Briller Kyoto Station South</p>
+                    <p class="text-sm text-stone-600">11/15 (六) - 11/17 (一)</p>
+                    <a href="https://maps.app.goo.gl/J2WNR6jmyGvZkjpJ7" target="_blank" class="text-emerald-600 hover:underline text-sm break-all">
+                        https://maps.app.goo.gl/J2WNR6jmyGvZkjpJ7
+                    </a>
+                </div>
+            </div>
+        </section>
 
-function showMsg(isOK, txt) {
-    document.getElementById("successMsg").style.display = isOK === true ? "block" : "none";
-    document.getElementById("errorMsg").style.display = isOK === false ? "block" : "none";
-    if (isOK === false) document.getElementById("errDetail").innerText = txt || "";
-    if (isOK === true || isOK === null) document.getElementById("errDetail").innerText = "";
-}
-</script>
-</body>
-</html>
+        <section id="daily" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-stone-800 mb-6">📅 每日行程與推薦</h2>
+            
+            <div class="border-b border-stone-300 flex flex-wrap -mb-px">
+                <button class="tab-button" data-tab="day1">第一天</button>
+                <button class="tab-button" data-tab="day2">第二天</button>
+                <button class="tab-button" data-tab="day3">第三天</button>
+                <button class="tab-button" data-tab="day4">第四天</button>
+                <button class="tab-button" data-tab="day5">第五天</button>
+            </div>
+
+            <div class="bg-white rounded-b-2xl shadow-lg border border-stone-200 p-6 sm:p-8">
+                
+                <div id="day1-content" class="daily-content space-y-8">
+                    <h3 class="text-2xl font-semibold text-emerald-700">11/13 (四) 第一天：大阪抵達 & 市區</h3>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">14:55 抵達關西空港</strong>
+                            <p class="text-sm text-stone-600">搭乘機場接送前往大阪飯店。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">阿倍野展望台 (HARUKAS)</strong>
+                            <p class="text-sm text-stone-600">地鐵前往。60層摩天大樓，360度觀賞大阪市容。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">道頓堀 (晚餐、逛街)</strong>
+                            <p class="text-sm text-stone-600">感受大阪風情，鄰近心齋橋購物聖地。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">返回飯店</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200">
+                        <div>
+                            <h4 class="text-xl font-semibold mb-4">🍜 美食推薦 (附近)</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>美津濃 (Mizuno) - 道頓堀:</strong> [米其林必比登] 著名的大阪燒名店，常需排隊。</li>
+                                <li><strong>Kushikatsu Daruma - 天王寺/道頓堀:</strong> [小吃] 知名串炸連鎖店，"禁止二次沾醬"。</li>
+                                <li><strong>章魚燒 (くれおーる) - 道頓堀:</strong> [小吃] 嘗試道地的章魚燒，外酥內軟。</li>
+                                <li><strong>Harukas 300 餐廳:</strong> [景觀餐廳] 在展望台大樓內享用晚餐，欣賞夜景。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-4">🛍️ 購物推薦 (附近)</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>Abeno Harukas 近鐵本店:</strong> [百貨] 位於展望台下方，大型百貨公司。</li>
+                                <li><strong>心齋橋筋商店街:</strong> [服飾/藥妝] 經典購物長廊，品牌、藥妝店林立。</li>
+                                <li><strong>Don Quijote (唐吉訶德) - 道頓堀:</strong> [伴手禮] 24小時營業的
+                                激安殿堂，適合採買零食伴手禮。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="day2-content" class="daily-content content-hidden space-y-8">
+                    <h3 class="text-2xl font-semibold text-emerald-700">11/14 (五) 第二天：大阪文化 & 購物</h3>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">10:00 武士道體驗</strong>
+                            <p class="text-sm text-stone-600">學習武士禮儀、基本劍型，並體驗斬擊。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">午餐 (蕎麥麵)</strong>
+                            <p class="text-sm text-stone-600">於體驗地點附近享用。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">大阪城</strong>
+                            <p class="text-sm text-stone-600">步行前往，參觀豐臣秀吉的居城。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">道頓堀 (晚餐、逛街)</strong>
+                            <p class="text-sm text-stone-600">再次吃爆買爆！</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">返回飯店 (整理行李)</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200">
+                        <div>
+                            <h4 class="text-xl font-semibold mb-4">🍜 美食推薦 (附近)</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>太庵 (Taian) - 心齋橋:</strong> [米其林三星] 需預約的炭火燒烤懷石料理。</li>
+                                <li><strong>蟹道樂 (Kani Doraku) - 道頓堀:</strong> [特色] 標誌性的大螃蟹招牌，品嚐各式螃蟹料理。</li>
+                                <li><strong>神座拉麵 (Kamukura) - 道頓堀:</strong> [拉麵] 以"美味的湯"聞名，湯頭清甜。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-4">🛍️ 購物推薦 (附近)</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>Amerikamura (美國村):</strong> [服飾] 適合尋找潮流服飾、古著和青年文化。</li>
+                                <li><strong>Namba Parks:</strong> [商場] 結合商場與屋頂花園的複合式建築，品牌眾多。</li>
+                                <li><strong>BEAMS - 心齋橋:</strong> [服飾] 日本知名選物店，有多種風格的服飾。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="day3-content" class="daily-content content-hidden space-y-8">
+                    <h3 class="text-2xl font-semibold text-emerald-700">11/15 (六) 第三天：奈良尋鹿 & 移師京都</h3>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">09:00 大阪飯店退房</strong>
+                            <p class="text-sm text-stone-600">搭乘包車前往奈良。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">奈良公園 (東大寺、春日大社)</strong>
+                            <p class="text-sm text-stone-600">參觀世界遺產，與神使小鹿互動 (僅能餵食鹿仙貝)。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">12:00 午餐 (已訂位)</strong>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">前往京都飯店</strong>
+                            <p class="text-sm text-stone-600">搭乘包車，入住 Hotel Briller。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">鴨川散步 (可選)</strong>
+                            <p class="text-sm text-stone-600">體驗「飛び石」(跳跳石)。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">18:30 晚餐 (已訂位)</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200">
+                        <div>
+                            <h4 class="text-xl font-semibold mb-4">🍜 美食推薦 (附近)</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>中谷堂 (Nakatanidou) - 奈良:</strong> [小吃] 必看的搗麻糬表演，艾草麻糬(よもぎ餅)超好吃。</li>
+                                <li><strong>柿之葉壽司 (Kakinoha-zushi) - 奈良:</strong> [特色] 奈良鄉土料理，用柿子葉包裹的壽司。</li>
+                                <li><strong>祇園丸山 (Gion Maruyama) - 京都祇園:</strong> [米其林二星] (晚餐地點附近) 傳統懷石料理，需預約。</li>
+                                <li><strong>Pontocho (先斗町) - 京都:</strong> [餐飲街] (晚餐地點附近) 鴨川旁的狹窄小巷，充滿各式餐廳。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-4">🛍️ 購物推薦 (附近)</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>東向商店街 (Higashimuki) - 奈良:</strong> [伴手禮] 位於近鐵奈良站旁，各式奈良土產、紀念品。</li>
+                                <li><strong>祇園/花見小路 - 京都:</strong> [伴手禮] 購買京扇、吸油面紙 (Yojiya) 等京都特色工藝品。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="day4-content" class="daily-content content-hidden space-y-8">
+                    <h3 class="text-2xl font-semibold text-emerald-700">11/16 (日) 第四天：京都嵐山一日遊</h3>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">09:30 搭乘專車</strong>
+                            <p class="text-sm text-stone-600">於京都車站八條口觀光巴士停車場出發。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">嵐山觀光火車</strong>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">保津川遊船</strong>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">午餐 (渡月橋附近)</strong>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">竹林小徑、天龍寺</strong>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">18:00 專車回飯店</strong>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">晚餐 & 整理行李</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200">
+                        <div>
+                            <h4 class="text-xl font-semibold mb-4">🍜 美食推薦 (附近)</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>Yudofu Sagano (嵯峨野) - 嵐山:</strong> [特色] 品嚐嵐山著名的湯豆腐料理。</li>
+                                <li><strong>% Arabica - 嵐山:</strong> [咖啡] 位於渡月橋旁的知名咖啡店，風景絕佳。</li>
+                                <li><strong>嵐山よしむら (Yoshimura) - 嵐山:</strong> [特色] 邊欣賞渡月橋美景邊享用蕎麥麵。</li>
+                                <li><strong>京都拉麵小路 - 京都車站:</strong> [拉麵] (飯店附近) 匯集日本各地拉麵名店。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold mb-4">🛍️ 購物推薦 (附近)</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>嵐山商店街:</strong> [伴手禮] 販售各式京都醬菜、和菓子、竹製品等工藝品。</li>
+                                <li><strong>JR 京都伊勢丹 (Isetan):</strong> [百貨] (飯店附近) 綜合型百貨，地下街美食與伴手禮是重點。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="day5-content" class="daily-content content-hidden space-y-8">
+                    <h3 class="text-2xl font-semibold text-emerald-700">11/17 (一) 第五天：京都 & 歡樂返航</h3>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">飯店退房</strong>
+                            <p class="text-sm text-stone-600">睡飽後退房，行李寄放飯店。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">早午餐</strong>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">12:00 機場接送</strong>
+                            <p class="text-sm text-stone-600">出發前往關西國際空港。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="text-stone-700">機場購物 & 用餐</strong>
+ 
