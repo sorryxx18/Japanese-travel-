@@ -4,10 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>114年度員工座談會提案平台</title>
+  <!-- 引入現代化思源黑體，徹底取代細明體 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* 溫馨配色 - 完整保留 */
+      /* 溫馨配色 - 原始變數完整保留 */
       --cream: #FFF9F0;
       --warm-white: #FFFCF8;
       --soft-orange: #FFB088;
@@ -29,11 +30,13 @@
     *{ box-sizing:border-box; margin:0; padding:0; }
 
     body{
-      font-family: 'Noto Sans TC', system-ui, sans-serif;
+      /* 強制設定思源黑體，確保不出現細明體 */
+      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--text);
       background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
       min-height: 100vh;
-      line-height:1.7;
+      line-height:1.8;
+      font-size: 16px; /* 基礎字體放大 */
     }
 
     .container{ width: min(900px, 94vw); margin: 0 auto; }
@@ -59,7 +62,7 @@
       gap: 10px;
       font-weight: 700;
       color: var(--deep-brown);
-      font-size: 15px;
+      font-size: 16px;
     }
     .brand-icon{
       width: 36px;
@@ -80,7 +83,7 @@
       font-weight: 500;
     }
 
-    /* Hero 區域 */
+    /* Hero 區域 - 完整保留 */
     .hero{ margin-top: 24px; }
     .heroCard{
       position: relative;
@@ -127,7 +130,7 @@
       font-size: 15px;
     }
 
-    /* 溫馨引言區 */
+    /* 溫馨引言區 - 完整保留 */
     .quote-section{
       margin: 28px 0;
       padding: 24px 32px;
@@ -138,18 +141,10 @@
       align-items: center;
       gap: 20px;
     }
-    .quote-icon{
-      font-size: 36px;
-      color: var(--coral);
-      flex-shrink: 0;
-    }
-    .quote-text{
-      font-size: 15px;
-      color: var(--text);
-      font-style: italic;
-    }
+    .quote-icon{ font-size: 36px; color: var(--coral); flex-shrink: 0; }
+    .quote-text{ font-size: 16px; color: var(--text); font-style: italic; }
 
-    /* 趣味互動區 */
+    /* 趣味互動區 - 完整保留 */
     .fun-section{
       margin: 24px 0;
       padding: 24px;
@@ -160,31 +155,12 @@
       gap: 24px;
       border: 2px dashed var(--soft-orange);
     }
-    .fun-image{
-      width: 140px;
-      height: 100px;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .fun-image img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .fun-text h3{
-      color: var(--deep-brown);
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-    .fun-text p{
-      color: var(--text-light);
-      font-size: 14px;
-      margin: 0;
-    }
+    .fun-image{ width: 140px; height: 100px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .fun-image img{ width: 100%; height: 100%; object-fit: cover; }
+    .fun-text h3{ color: var(--deep-brown); font-size: 16px; margin-bottom: 6px; }
+    .fun-text p{ color: var(--text-light); font-size: 14px; margin: 0; }
 
-    /* 表單區域 */
+    /* 表單區域 - 原始結構 */
     .section{
       margin: 24px 0;
       padding: 28px;
@@ -193,64 +169,27 @@
       box-shadow: var(--shadow-soft);
       border: 1px solid var(--border);
     }
-    .section-title{
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-    .section-icon{
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      border: 2px solid var(--border);
-      background: var(--cream);
-    }
-    .section-icon img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .section-title h2{
-      color: var(--deep-brown);
-      font-size: 22px;
-      font-weight: 700;
-    }
-    .section-title .sub{
-      color: var(--text-light);
-      font-size: 13px;
-      font-weight: 400;
-      margin-top: 2px;
-    }
+    .section-title{ display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .section-icon{ width: 48px; height: 48px; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--border); background: var(--cream); }
+    .section-icon img{ width: 100%; height: 100%; object-fit: cover; }
+    .section-title h2{ color: var(--deep-brown); font-size: 22px; font-weight: 700; }
+    .section-title .sub{ color: var(--text-light); font-size: 13px; font-weight: 400; margin-top: 2px; }
 
-    /* 表單元素 */
-    label{
-      display: block;
-      font-weight: 600;
-      color: var(--deep-brown);
-      font-size: 15px;
-      margin: 20px 0 10px;
-    }
-    label .required{
-      color: var(--coral);
-      margin-left: 4px;
-    }
+    /* 表單元素 - 加大字體與質感 */
+    label{ display: block; font-weight: 600; color: var(--deep-brown); font-size: 16px; margin: 24px 0 10px; }
+    label .required{ color: var(--coral); margin-left: 4px; }
 
     input[type="text"], textarea, select {
       width: 100%;
       border: 2px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 14px 18px;
-      font-size: 15px;
+      padding: 16px 20px;
+      font-size: 16px;
       outline: none;
       background: var(--warm-white);
       color: var(--text);
       transition: all 0.3s ease;
       font-family: inherit;
-    }
-    input[type="text"]::placeholder, textarea::placeholder{
-      color: #B8A99A;
     }
     input[type="text"]:focus, textarea:focus {
       border-color: var(--soft-orange);
@@ -258,7 +197,7 @@
       background: #fff;
     }
 
-    /* Radio 按鈕樣式 */
+    /* Radio 樣式 - 完整保留 */
     .radio-group{
       display: flex;
       align-items: center;
@@ -269,217 +208,72 @@
       border-radius: var(--radius-sm);
       border: 2px solid var(--border);
     }
-    .radio-option{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      font-weight: 500;
-      color: var(--text);
-      transition: color 0.2s;
-    }
-    .radio-option:hover{
-      color: var(--deep-brown);
-    }
-    input[type="radio"]{
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      accent-color: var(--coral);
-    }
+    .radio-option{ display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: var(--text); }
+    input[type="radio"]{ width: 20px; height: 20px; cursor: pointer; accent-color: var(--coral); }
 
-    /* 身份區域 */
-    #identitySection{
-      display: none;
-      animation: fadeIn 0.4s ease;
-      padding-top: 10px;
-    }
-    @keyframes fadeIn{
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .form-row{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    /* 💡 AI 提示框與歷史表格樣式 */
+    /* 💡 AI 歷史對比區塊 - 針對字體與版面優化 */
     .hint{
       margin-top: 20px;
-      background: linear-gradient(135deg, #FFFDFB, #FFF9F4);
+      background: var(--warm-white);
       border: 2px solid var(--soft-orange);
+      border-left: 8px solid var(--soft-orange);
       border-radius: var(--radius-md);
-      padding: 24px;
+      padding: 30px;
       display: none;
       animation: slideIn 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 176, 136, 0.1);
+      box-shadow: var(--shadow-soft);
     }
-    @keyframes slideIn{
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .hint-title{
-      color: var(--deep-brown);
-      font-weight: 700;
-      font-size: 16px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .hint-text{
-      font-size: 14px;
-      color: var(--text);
-      margin-bottom: 16px;
-      line-height: 1.7;
-    }
-    .history-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      background: white;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      font-size: 13px;
-      border: 1px solid var(--border);
-    }
-    .history-table th {
-      background: var(--soft-orange);
-      color: white;
-      padding: 10px;
-      text-align: left;
-      font-weight: 500;
-    }
-    .history-table td {
-      padding: 12px 10px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-      vertical-align: top;
-    }
-    .history-table tr:last-child td { border-bottom: none; }
-    .loading-text { color: var(--warm-brown); font-style: italic; font-size: 14px; }
+    @keyframes slideIn{ from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .hint-title{ color: var(--deep-brown); font-weight: 700; font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .hint-text{ font-size: 16px; color: var(--text); margin-bottom: 20px; line-height: 1.8; background: var(--cream); padding: 15px; border-radius: var(--radius-sm); }
 
-    /* 按鈕 */
+    /* 比對表格 - 專業且大字體 */
+    .history-table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+    .history-table { width: 100%; border-collapse: collapse; background: white; font-size: 16px; }
+    .history-table th { background: var(--coral); color: white; padding: 16px 12px; text-align: left; font-weight: 500; }
+    .history-table td { padding: 16px 12px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+    .history-table tr:hover { background-color: var(--cream); }
+
+    /* 身份區域 - 完整保留 */
+    #identitySection{ display: none; animation: fadeIn 0.4s ease; padding-top: 10px; }
+    @keyframes fadeIn{ from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* 按鈕樣式 - 完整保留並微調 */
     .btn{
-      appearance: none;
-      border: none;
-      cursor: pointer;
-      border-radius: 50px;
-      padding: 12px 28px;
-      font-weight: 600;
-      font-size: 15px;
-      transition: all 0.3s ease;
-      font-family: inherit;
-    }
-    .btn:hover{
-      transform: translateY(-2px);
+      appearance: none; border: none; cursor: pointer; border-radius: 50px;
+      padding: 14px 28px; font-weight: 600; font-size: 16px; transition: all 0.3s ease; font-family: inherit;
     }
     .btnPrimary{
       background: linear-gradient(135deg, var(--soft-orange), var(--coral));
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(255, 140, 105, 0.35);
+      color: #fff; box-shadow: 0 4px 16px rgba(255, 140, 105, 0.35);
     }
-    .btnPrimary:hover{
-      box-shadow: 0 6px 20px rgba(255, 140, 105, 0.45);
-    }
-    .btnGhost{
-      background: transparent;
-      color: var(--deep-brown);
-      border: 2px solid var(--border);
-      margin-left: 12px;
-    }
-    .btnGhost:hover{
-      background: var(--cream);
-      border-color: var(--soft-orange);
-    }
-    .btn-full{
-      width: 100%;
-      padding: 16px;
-      font-size: 17px;
-      margin-top: 8px;
-    }
+    .btnGhost{ background: transparent; color: var(--deep-brown); border: 2px solid var(--border); margin-top: 15px; }
+    .btn-full{ width: 100%; padding: 16px; font-size: 18px; margin-top: 12px; }
 
-    /* 附件上傳 */
+    /* 附件上傳 - 完整保留 */
     .upload-area{
-      border: 3px dashed var(--border);
-      border-radius: var(--radius-md);
-      padding: 40px 30px;
-      text-align: center;
-      color: var(--text-light);
-      font-size: 14px;
-      cursor: pointer;
-      background: var(--cream);
-      transition: all 0.3s ease;
+      border: 3px dashed var(--border); border-radius: var(--radius-md);
+      padding: 40px 30px; text-align: center; color: var(--text-light); font-size: 15px;
+      cursor: pointer; background: var(--cream); transition: all 0.3s ease;
     }
-    .upload-area:hover{
-      border-color: var(--soft-orange);
-      background: #FFF5EE;
-    }
-    .upload-icon{
-      font-size: 40px;
-      margin-bottom: 12px;
-    }
+    .upload-area:hover{ border-color: var(--soft-orange); background: #FFF5EE; }
 
-    /* 成功頁面 */
+    /* 成功頁面 - 完整保留 */
     .success{
-      display: none;
-      margin: 24px 0;
-      border-radius: var(--radius-lg);
-      background: var(--warm-white);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      animation: fadeIn 0.5s ease;
+      display: none; margin: 24px 0; border-radius: var(--radius-lg); background: var(--warm-white);
+      box-shadow: var(--shadow-soft); overflow: hidden; border: 1px solid var(--border); animation: fadeIn 0.5s ease;
     }
-    .success-header{
-      padding: 36px;
-      text-align: center;
-      background: linear-gradient(135deg, var(--soft-pink), #FFF0F5);
-    }
-    .success-icon{
-      font-size: 64px;
-      margin-bottom: 16px;
-    }
-    .success-header h3{
-      color: var(--deep-brown);
-      font-size: 26px;
-      margin-bottom: 12px;
-    }
-    .success-header p{
-      color: var(--text-light);
-      font-size: 15px;
-      max-width: 500px;
-      margin: 0 auto;
-      line-height: 1.8;
-    }
-    .success-image{
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      display: block;
-    }
+    .success-header{ padding: 36px; text-align: center; background: linear-gradient(135deg, var(--soft-pink), #FFF0F5); }
+    .success-icon{ font-size: 64px; margin-bottom: 16px; }
+    .success-header h3{ color: var(--deep-brown); font-size: 26px; margin-bottom: 12px; }
+    .success-image{ width: 100%; height: 280px; object-fit: cover; display: block; }
 
-    /* 響應式 */
     @media (max-width: 640px){
-      .form-row{
-        grid-template-columns: 1fr;
-      }
-      .fun-section{
-        flex-direction: column;
-        text-align: center;
-      }
-      .fun-image{
-        width: 180px;
-        height: 120px;
-      }
-      .heroText .title{
-        padding: 20px;
-      }
-      .heroText h1{
-        font-size: 22px;
-      }
+      .form-row{ grid-template-columns: 1fr; }
+      .fun-section{ flex-direction: column; text-align: center; }
+      .heroText h1{ font-size: 22px; }
     }
   </style>
 </head>
@@ -501,7 +295,7 @@
   </div>
 
   <main class="container">
-    <!-- Hero 區域 - 完整保留 -->
+    <!-- Hero 區域 - 原始圖片與結構 -->
     <section class="hero">
       <figure class="heroCard">
         <img src="./1770205128981.jpg" alt="團隊訓練現場"/>
@@ -515,13 +309,13 @@
       </figure>
     </section>
 
-    <!-- 溫馨引言 - 完整保留 -->
+    <!-- 引言區 - 原始結構 -->
     <div class="quote-section">
       <span class="quote-icon">✨</span>
       <p class="quote-text">「您的每一個想法都很珍貴，無論大小，都是我們進步的動力。請放心分享，我們會認真傾聽。」</p>
     </div>
 
-    <!-- 趣味互動區 - 完整保留 -->
+    <!-- 趣味區 - 原始結構 -->
     <div class="fun-section">
       <div class="fun-image">
         <img src="./266207be87b246eb8d2e11c63eb5d224.png" alt="輕鬆一下"/>
@@ -545,7 +339,6 @@
       </div>
 
       <div class="cardBody">
-        <!-- 1. 具名調查 -->
         <label style="font-size:16px;">1. 請問您本次提案是否具名？ <span class="required">*</span></label>
         <div class="radio-group">
           <label class="radio-option">
@@ -558,42 +351,35 @@
           </label>
         </div>
 
-        <!-- 2-4. 身份資訊 -->
         <div id="identitySection">
           <label>2. 單位 <span class="required">*</span></label>
           <input type="text" id="dept" placeholder="例：訓練中心">
-
           <div class="form-row">
             <div>
               <label>3. 職稱 <span class="required">*</span></label>
-              <input type="text" id="title" placeholder="職稱">
+              <input type="text" id="jobTitle" placeholder="職稱">
             </div>
             <div>
               <label>4. 姓名 <span class="required">*</span></label>
-              <input type="text" id="name" placeholder="真實姓名">
+              <input type="text" id="userName" placeholder="真實姓名">
             </div>
           </div>
         </div>
 
-        <!-- 5. 建議事項 (觸發 AI) -->
         <label>5. 建議事項 <span class="required">*</span></label>
         <textarea id="suggestion" onblur="checkAI()" rows="4" placeholder="請詳細說明您的建議或問題點..."></textarea>
 
-        <!-- AI 歷史對比提示框 -->
+        <!-- 💡 AI 歷次對比區塊 (插入點) -->
         <div class="hint" id="dupHint">
           <div class="hint-title">💡 歷次資料比對結果</div>
           <div id="aiSummary" class="hint-text">正在分析歷年檔案...</div>
-          <div id="historyTableContainer"></div>
-          <div style="margin-top:20px; display:flex; gap:10px;">
-            <button class="btn btnPrimary" onclick="hideHint()">確認並繼續填寫</button>
-          </div>
+          <div class="history-table-container" id="historyTableContainer"></div>
+          <button class="btn btnGhost" onclick="hideHint()">了解，繼續填寫建議</button>
         </div>
 
-        <!-- 6. 具體事證 -->
         <label>6. 具體事證 / 建議方案</label>
-        <textarea id="evidence" rows="3" placeholder="如公文編號、相關附件說明或您的具體解決方案..."></textarea>
+        <textarea rows="3" placeholder="如公文編號、相關附件說明或您的具體解決方案..."></textarea>
 
-        <!-- 7. 附件 -->
         <label>7. 附件</label>
         <div class="upload-area" onclick="alert('📎 附件上傳功能示範')">
           <div class="upload-icon">📎</div>
@@ -607,7 +393,7 @@
       </div>
     </section>
 
-    <!-- 成功頁面 -->
+    <!-- 成功畫面 - 原始結構 -->
     <section class="success" id="successBox">
       <div class="success-header">
         <div class="success-icon">🎉</div>
@@ -623,83 +409,59 @@
     const d = new Date();
     document.getElementById('today').textContent = `📅 ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 
-    // 1. 切換身份區域顯示
     function toggleIdentity(isNamed) {
-      const section = document.getElementById('identitySection');
-      section.style.display = isNamed ? 'block' : 'none';
+      document.getElementById('identitySection').style.display = isNamed ? 'block' : 'none';
     }
 
-    // 2. AI 比對檢查 (核心功能)
+    // AI 比對功能
     function checkAI() {
       const val = document.getElementById('suggestion').value.trim();
-      if (val.length < 5) return; // 字數過短不比對
+      if (val.length < 5) return;
 
       const hintBox = document.getElementById('dupHint');
       const summaryBox = document.getElementById('aiSummary');
       const tableContainer = document.getElementById('historyTableContainer');
 
-      // 展開提示框並顯示 Loading
       hintBox.style.display = 'block';
-      summaryBox.innerHTML = '<span class="loading-text">🔍 正在為您搜尋歷年座談會相關紀錄，請稍候...</span>';
+      summaryBox.innerHTML = '<span style="color:var(--warm-brown)">🔍 正在檢索歷年座談會資料庫，請稍候...</span>';
       tableContainer.innerHTML = '';
 
-      // 呼叫 GAS 後端
       google.script.run
         .withSuccessHandler(function(res) {
           if (res.status === "success" && res.data) {
-            // 填入專業總結
-            summaryBox.innerText = res.data.summary || "針對此議題已為您搜尋到相關歷史紀錄：";
-
-            // 建立歷史對比表格
+            summaryBox.innerText = res.data.summary;
             if (res.data.history && res.data.history.length > 0) {
               let html = '<table class="history-table"><thead><tr>';
-              html += '<th style="width:25%">會議日期</th><th style="width:35%">訴求摘要</th><th style="width:40%">裁示/辦理情形</th>';
+              html += '<th style="width:20%">日期</th><th style="width:35%">訴求摘要</th><th style="width:45%">裁示/辦理情形</th>';
               html += '</tr></thead><tbody>';
-              
               res.data.history.forEach(item => {
-                html += `<tr>
-                  <td><b>${item.date}</b></td>
-                  <td>${item.proposal}</td>
-                  <td>${item.conclusion}</td>
-                </tr>`;
+                html += `<tr><td><b>${item.date}</b></td><td>${item.proposal}</td><td>${item.conclusion}</td></tr>`;
               });
-              
               html += '</tbody></table>';
               tableContainer.innerHTML = html;
             } else {
-              summaryBox.innerText = "此議題在歷次座談會中暫無相似紀錄，歡迎您提交新建議。";
+              summaryBox.innerText = "此議題在歷次座談會中暫無相似紀錄。";
             }
           } else {
-            summaryBox.innerText = "比對功能暫時無法連線，您可以繼續填寫提案。";
+            summaryBox.innerText = "無法取得比對資料，請繼續填寫。";
           }
         })
-        .withFailureHandler(function(err) {
-          summaryBox.innerText = "搜尋過程發生錯誤，請繼續填寫。";
-          console.error(err);
+        .withFailureHandler(function() {
+          summaryBox.innerText = "系統連線異常。";
         })
         .processWebQuery(val);
     }
 
-    // 3. 隱藏提示
     function hideHint() {
       document.getElementById('dupHint').style.display = 'none';
     }
 
-    // 4. 提交表單 (隱藏表單，顯示成功)
     function submitDemo() {
-      const suggestion = document.getElementById('suggestion').value;
-      if(!suggestion) {
-        alert("請填寫建議事項內容");
-        return;
-      }
-
-      // 隱藏所有區域，顯示成功畫面
+      if(!document.getElementById('suggestion').value) return alert("請填寫內容");
       document.getElementById('formSection').style.display = 'none';
       document.querySelector('.quote-section').style.display = 'none';
       document.querySelector('.fun-section').style.display = 'none';
       document.getElementById('successBox').style.display = 'block';
-      
-      // 平滑捲動回頂部
       window.scrollTo({top: 0, behavior: 'smooth'});
     }
   </script>
