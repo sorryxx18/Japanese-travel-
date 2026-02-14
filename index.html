@@ -8,162 +8,161 @@
   <style>
     :root{
       --cream: #FFF9F0; --warm-white: #FFFCF8; --soft-orange: #FFB088; --coral: #FF8C69;
-      --warm-brown: #8B6F5C; --deep-brown: #6B5344; --text: #4A403A; --text-light: #7A6B5F;
-      --border: #F0E6DC; --shadow-soft: 0 12px 40px rgba(139, 111, 92, 0.12);
-      --shadow-hover: 0 20px 50px rgba(139, 111, 92, 0.18);
-      --radius-lg: 32px; --radius-md: 20px; --radius-sm: 14px;
+      --warm-brown: #8B6F5C; --deep-brown: #6B5344; --text: #4A403A; --border: #F0E6DC;
+      --shadow-soft: 0 12px 40px rgba(139, 111, 92, 0.12);
+      --radius-lg: 32px; --radius-md: 20px;
     }
     *{ box-sizing:border-box; margin:0; padding:0; }
-    body{ font-family: 'Noto Sans TC', sans-serif; color: var(--text); background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%); min-height: 100vh; line-height:1.9; font-size: 17px; }
-    .container{ width: min(1100px, 94vw); margin: 0 auto; }
-    .topbar{ position: sticky; top: 0; z-index: 20; background: rgba(255, 252, 248, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); padding: 18px 0; }
+    body{ font-family: 'Noto Sans TC', sans-serif; color: var(--text); background: var(--cream); line-height:1.8; font-size: 18px; }
+    .container{ width: min(1100px, 94vw); margin: 0 auto; padding-bottom: 50px; }
+    
+    /* 頂部 */
+    .topbar{ position: sticky; top: 0; z-index: 20; background: rgba(255, 252, 248, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); padding: 20px 0; }
     .inner{ display: flex; align-items: center; justify-content: space-between; }
-    .brand{ display: flex; align-items: center; gap: 12px; font-weight: 700; color: var(--deep-brown); font-size: 19px; }
-    .brand-icon{ width: 42px; height: 42px; background: linear-gradient(135deg, var(--soft-orange), var(--coral)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-    .badge{ font-size: 14px; padding: 8px 18px; border-radius: 30px; color: var(--warm-brown); background: #FFE4E1; font-weight: 500; }
-    .hero{ margin-top: 40px; }
-    .heroCard{ position: relative; overflow: hidden; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); min-height: 480px; }
-    .heroCard img{ width: 100%; height: 100%; object-fit: cover; display: block; }
-    .heroOverlay{ position: absolute; inset: 0; background: linear-gradient(180deg, rgba(107, 83, 68, 0) 20%, rgba(107, 83, 68, 0.75) 100%); }
+    .brand{ font-weight: 700; color: var(--deep-brown); font-size: 22px; display: flex; align-items: center; gap: 10px; }
+    
+    /* Hero 與圖片比例修正 */
+    .hero{ margin-top: 30px; }
+    .heroCard{ position: relative; overflow: hidden; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); height: 500px; background: #eee; }
+    .heroCard img{ width: 100%; height: 100%; object-fit: cover; } /* 關鍵：確保照片滿版不變形 */
     .heroText{ position: absolute; left: 40px; right: 40px; bottom: 40px; }
-    .heroText .title{ background: rgba(255, 252, 248, 0.97); border-radius: var(--radius-md); padding: 40px 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); max-width: 850px; }
-    .heroText h1{ margin: 0; font-size: 42px; color: var(--deep-brown); font-weight: 700; line-height: 1.3; }
-    .quote-section{ margin: 45px 0; padding: 35px 45px; background: #FFE4E1; border-radius: var(--radius-md); border-left: 6px solid var(--coral); display: flex; align-items: center; gap: 30px; }
-    .fun-section{ margin: 45px 0; padding: 35px; background: #FFF9F0; border-radius: var(--radius-md); display: flex; align-items: center; gap: 40px; border: 3px dashed var(--soft-orange); }
-    .fun-image{ width: 220px; height: 150px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; }
-    .section{ margin: 45px 0; padding: 50px; background: var(--warm-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); border: 1px solid var(--border); }
-    .section-title{ display: flex; align-items: center; gap: 20px; margin-bottom: 40px; }
-    .section-icon{ width: 60px; height: 60px; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--border); }
-    label{ display: block; font-weight: 700; color: var(--deep-brown); font-size: 18px; margin: 35px 0 15px; }
-    .required{ color: var(--coral); margin-left: 5px; }
-    input[type="text"], textarea { width: 100%; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 20px; font-size: 17px; outline: none; background: white; font-family: inherit; }
-    .radio-group{ display: flex; gap: 40px; margin-top: 15px; padding: 25px 35px; background: var(--cream); border-radius: var(--radius-sm); border: 2px solid var(--border); }
-    .radio-option{ display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 18px; font-weight: 500; }
-    #identitySection{ display: none; margin-top: 20px; animation: slideIn 0.4s ease; }
-    .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .hint{ margin: 40px 0; background: white; border: 2px solid var(--soft-orange); border-left: 10px solid var(--soft-orange); border-radius: var(--radius-md); padding: 40px; display: none; box-shadow: 0 20px 50px rgba(139, 111, 92, 0.18); }
-    .hint-title{ color: var(--deep-brown); font-weight: 700; font-size: 24px; margin-bottom: 20px; }
-    .hint-text{ font-size: 18px; line-height: 1.8; background: var(--cream); padding: 25px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
-    .history-table { width: 100%; border-collapse: collapse; background: white; font-size: 17px; margin-top: 20px; }
-    .history-table th { background: var(--coral); color: white; padding: 18px; text-align: left; }
-    .history-table td { padding: 18px; border-bottom: 1px solid var(--border); }
-    .btn{ appearance: none; border: none; cursor: pointer; border-radius: 60px; padding: 18px 45px; font-weight: 700; font-size: 18px; transition: 0.3s; font-family: inherit; }
-    .btnPrimary{ background: linear-gradient(135deg, var(--soft-orange), var(--coral)); color: #fff; }
-    .btnGhost{ background: white; color: var(--warm-brown); border: 2px solid var(--border); margin-top: 25px; }
-    .success{ display: none; margin: 50px 0; border-radius: var(--radius-lg); background: white; overflow: hidden; border: 1px solid var(--border); text-align: center; }
-    @keyframes slideIn{ from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+    .heroText .title{ background: rgba(255, 252, 248, 0.98); border-radius: var(--radius-md); padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+    .heroText h1{ font-size: 44px; color: var(--deep-brown); margin: 0; line-height: 1.2; } /* 標題加大 */
+    
+    /* 溫馨引言區 */
+    .quote-section{ margin: 40px 0; padding: 40px; background: #FFE4E1; border-radius: var(--radius-md); border-left: 8px solid var(--coral); display: flex; align-items: center; gap: 30px; }
+    .quote-text{ font-size: 22px; font-weight: 500; font-style: italic; }
+
+    /* 趣味互動 */
+    .fun-section{ margin: 40px 0; padding: 40px; background: #FFF; border-radius: var(--radius-md); display: flex; align-items: center; gap: 40px; border: 3px dashed var(--soft-orange); }
+    .fun-image{ width: 250px; height: 160px; border-radius: 15px; overflow: hidden; flex-shrink: 0; }
+    .fun-image img{ width: 100%; height: 100%; object-fit: cover; }
+
+    /* 表單區塊 */
+    .section{ margin: 40px 0; padding: 60px; background: var(--warm-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); border: 1px solid var(--border); }
+    .section-title h2{ font-size: 34px; color: var(--deep-brown); margin-bottom: 10px; }
+    label{ display: block; font-weight: 700; font-size: 20px; margin: 30px 0 15px; }
+    input, textarea{ width: 100%; border: 2px solid var(--border); border-radius: 15px; padding: 20px; font-size: 18px; outline: none; font-family: inherit; }
+    
+    /* AI 比對結果表格調校 */
+    .hint{ margin: 40px 0; background: white; border: 3px solid var(--soft-orange); border-radius: var(--radius-md); padding: 40px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .hint-title{ font-size: 26px; font-weight: 700; color: var(--deep-brown); margin-bottom: 20px; }
+    .hint-text{ font-size: 19px; background: var(--cream); padding: 25px; border-radius: 15px; margin-bottom: 30px; }
+    .history-table { width: 100%; border-collapse: collapse; font-size: 18px; }
+    .history-table th { background: var(--coral); color: white; padding: 20px; text-align: left; }
+    .history-table td { padding: 20px; border-bottom: 1px solid var(--border); vertical-align: top; }
+
+    /* 按鈕 */
+    .btn{ cursor: pointer; border-radius: 60px; padding: 20px 50px; font-weight: 700; font-size: 20px; border: none; transition: 0.3s; font-family: inherit; }
+    .btnPrimary{ background: linear-gradient(135deg, var(--soft-orange), var(--coral)); color: #fff; width: 100%; }
+    .btnGhost{ background: white; color: var(--warm-brown); border: 2px solid var(--border); margin-top: 30px; }
+    
+    /* 成功頁面 */
+    .success{ display: none; padding: 100px 40px; background: white; border-radius: var(--radius-lg); text-align: center; }
+    .success h3{ font-size: 48px; color: var(--deep-brown); }
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="container"><div class="inner"><div class="brand"><span class="brand-icon">💬</span><span>員工座談會意見平台</span></div><div style="display:flex; gap:15px;"><span class="badge">💛 內部專用</span><span class="badge" id="today"></span></div></div></div></div>
-  <main class="container">
-    <section class="hero"><figure class="heroCard"><img src="./1770205128981.jpg" alt="Hero"/><div class="heroOverlay"></div><div class="heroText"><div class="title"><h1>每一份建議，都是成長的力量</h1><p>114年度員工座談會：讓我們一起變得更好 💪</p></div></div></figure></section>
-    <div class="quote-section"><span style="font-size:48px">✨</span><p class="quote-text">「您的每一個想法都很珍貴。無論大小，都是我們進步的動力。我們會認真傾聽。」</p></div>
-    <div class="fun-section"><div class="fun-image"><img src="./266207be87b246eb8d2e11c63eb5d224.png" alt="Fun"/></div><div class="fun-text"><h3>🎭 有話就說，不用客氣！</h3><p>不管是開心的事、困擾的事，都歡迎在這裡分享。我們一起尋找解決方案！</p></div></div>
-    <section class="section" id="formSection">
-      <div class="section-title"><div class="section-icon"><img src="./1770205128981.jpg" alt="Icon"/></div><div><h2>填寫您的提案</h2><p>AI 自動檢索歷年資料庫</p></div></div>
-      <div class="cardBody">
-        <label>1. 請問您本次提案是否具名？ <span class="required">*</span></label>
-        <div class="radio-group">
-          <label class="radio-option"><input type="radio" name="identity" value="named" onclick="toggleIdentity(true)"><span>記名反映</span></label>
-          <label class="radio-option"><input type="radio" name="identity" value="anon" id="radioAnon" checked onclick="toggleIdentity(false)"><span>不記名 (匿名)</span></label>
-        </div>
-        <div id="identitySection">
-          <label>2. 單位 <span class="required">*</span></label><input type="text" id="dept" placeholder="例：人事室 / 外勤分隊">
-          <div class="form-row">
-            <div><label>3. 職稱 <span class="required">*</span></label><input type="text" id="jobTitle" placeholder="職稱"></div>
-            <div><label>4. 姓名 <span class="required">*</span></label><input type="text" id="userName" placeholder="真實姓名"></div>
-          </div>
-        </div>
-        <label>5. 建議事項 <span class="required">*</span></label>
-        <textarea id="suggestion" onblur="checkAI()" rows="6" placeholder="請詳細說明您的建議或問題點..."></textarea>
-        <!-- AI 回覆區 -->
-        <div class="hint" id="dupHint">
-          <div class="hint-title">💡 歷次資料比對結果</div>
-          <div id="aiSummary" class="hint-text">正在分析歷年檔案...</div>
-          <div id="historyTableContainer"></div>
-          <button class="btn btnGhost" onclick="hideHint()">了解，繼續填寫</button>
-        </div>
-        <label>6. 具體事證 / 建議方案</label><textarea id="evidence" rows="4" placeholder="相關公文編號、數據或解決方案..."></textarea>
-        <label>7. 附件 (選填)</label>
-        <div style="border: 3px dashed var(--border); padding: 40px; text-align: center; background: var(--cream); cursor: pointer;" onclick="alert('附件請隨表單自動存檔')">📎 點擊或拖放檔案至此處上傳</div>
-        <button class="btn btnPrimary" id="submitBtn" style="width:100%; margin-top:40px;" onclick="submitForm()">💌 送出建議事項</button>
-      </div>
+  <div class="topbar"><div class="container"><div class="inner"><div class="brand">💬 員工座談會意見平台</div><div id="today" style="font-weight:700;"></div></div></div></div>
+  
+  <main class="container" id="mainContent">
+    <section class="hero">
+      <figure class="heroCard">
+        <img src="1770205128981.jpg" alt="Hero"/> <!-- 確保此檔案在 GitHub 根目錄 -->
+      </figure>
+      <div class="heroText"><div class="title"><h1>每一份建議，都是成長的力量</h1><p>讓我們一起聽見基層的聲音 💪</p></div></div>
     </section>
+
+    <div class="quote-section">✨ <p class="quote-text">「您的建議無論大小，都是我們進步的動力。」</p></div>
+
+    <section class="section" id="formSection">
+      <div class="section-title"><h2>填寫您的提案</h2><p>AI Gemini 3 自動調閱歷年紀錄進行比對</p></div>
+      
+      <label>1. 請問提案是否具名？</label>
+      <div style="display:flex; gap:40px; margin-bottom:30px;">
+        <label style="margin:0"><input type="radio" name="identity" value="named" onclick="toggleId(true)"> 記名反映</label>
+        <label style="margin:0"><input type="radio" name="identity" value="anon" checked onclick="toggleId(false)"> 不記名反映</label>
+      </div>
+
+      <div id="identitySection" style="display:none;">
+        <label>單位/職稱/姓名</label>
+        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:20px;">
+          <input type="text" id="dept" placeholder="單位">
+          <input type="text" id="jobTitle" placeholder="職稱">
+          <input type="text" id="userName" placeholder="姓名">
+        </div>
+      </div>
+
+      <label>5. 建議事項 (輸入完點擊框外觸發 AI)</label>
+      <textarea id="suggestion" onblur="checkAI()" rows="6" placeholder="請輸入建議..."></textarea>
+
+      <div class="hint" id="dupHint">
+        <div class="hint-title">💡 歷次資料比對結果</div>
+        <div id="aiSummary" class="hint-text">正在分析歷年檔案...</div>
+        <div id="historyTable"></div>
+        <button class="btn btnGhost" onclick="document.getElementById('dupHint').style.display='none'">了解，繼續填寫</button>
+      </div>
+
+      <label>6. 具體事證 / 建議方案</label>
+      <textarea id="evidence" rows="4"></textarea>
+
+      <button class="btn btnPrimary" id="submitBtn" style="margin-top:50px;" onclick="submitForm()">💌 送出建議事項</button>
+    </section>
+
     <section class="success" id="successBox">
-      <div style="padding:80px"><div style="font-size:100px">🎉</div><h3>感謝您的分享</h3><p>您的建議已成功收悉 💚</p></div>
-      <img src="./1769910482662.jpg" style="width:100%; height:400px; object-fit:cover" alt="Success"/>
+      <h3>🎉 感謝您的分享</h3>
+      <p style="font-size:24px; margin-top:20px;">您的建議已成功收悉 💚</p>
+      <img src="1769910482662.jpg" style="width:100%; max-width:600px; margin-top:50px; border-radius:20px;">
     </section>
   </main>
+
   <script>
-    // --- 重要：修改此處網址 ---
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbzJN-ySCeKKjpJeT48YdkYaWrHZKITDan6HfWi9w3SHjrlcjwlsmgMkJ-ZcFo-0qDbz/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzv6gx72y1isHEBnSnStT9-XPz61NZrYmba9wF8EwYEIoD5-RWZRnr5gXatAE8dO1VU/exec";
+    document.getElementById('today').textContent = new Date().toLocaleDateString();
 
-    document.getElementById('today').textContent = `📅 ${new Date().toLocaleDateString()}`;
-    function toggleIdentity(s) { document.getElementById('identitySection').style.display = s ? 'block' : 'none'; }
-    function hideHint() { document.getElementById('dupHint').style.display = 'none'; }
+    function toggleId(s) { document.getElementById('identitySection').style.display = s ? 'block' : 'none'; }
 
-    // 【對接 1：AI 比對】
     async function checkAI() {
-      const query = document.getElementById('suggestion').value.trim();
-      if (query.length < 5) return;
-      const hintBox = document.getElementById('dupHint');
-      const summaryBox = document.getElementById('aiSummary');
-      const tableContainer = document.getElementById('historyTableContainer');
-      hintBox.style.display = 'block';
-      summaryBox.innerHTML = '🔍 正在比對歷年資料，請稍候...';
-      tableContainer.innerHTML = '';
-
+      const q = document.getElementById('suggestion').value.trim();
+      if (q.length < 5) return;
+      document.getElementById('dupHint').style.display = 'block';
+      document.getElementById('aiSummary').innerHTML = "🔍 正在透過 Gemini 3 比對歷年資料...";
+      
       try {
-        const response = await fetch(GAS_URL, {
-          method: "POST",
-          body: JSON.stringify({ action: "query", query: query })
-        });
-        const res = await response.json();
-        if (res.status === "success" && res.data) {
-          summaryBox.innerText = res.data.summary;
-          if (res.data.history && res.data.history.length > 0) {
-            let html = '<table class="history-table"><thead><tr><th>日期</th><th>訴求摘要</th><th>裁示內容</th></tr></thead><tbody>';
-            res.data.history.forEach(item => {
-              html += `<tr><td><b>${item.date}</b></td><td>${item.proposal}</td><td>${item.conclusion}</td></tr>`;
-            });
-            tableContainer.innerHTML = html + '</tbody></table>';
-          }
-        } else { summaryBox.innerText = "目前查無直接相關紀錄，歡迎提出您的新見解。"; }
-      } catch (e) { summaryBox.innerText = "比對服務暫時連線中，請繼續填寫。"; }
+        const res = await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "query", query: q }) });
+        const json = await res.json();
+        if (json.status === "success") {
+          document.getElementById('aiSummary').innerText = json.data.summary;
+          let h = '<table class="history-table"><thead><tr><th>日期</th><th>訴求</th><th>裁示</th></tr></thead><tbody>';
+          json.data.history.forEach(i => h += `<tr><td><b>${i.date}</b></td><td>${i.proposal}</td><td>${i.conclusion}</td></tr>`);
+          document.getElementById('historyTable').innerHTML = h + '</tbody></table>';
+        }
+      } catch (e) { document.getElementById('aiSummary').innerText = "比對服務暫時無法連線。"; }
     }
 
-    // 【對接 2：存檔】
     async function submitForm() {
-      const suggestion = document.getElementById('suggestion').value.trim();
-      if (!suggestion) return alert("請輸入建議事項");
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true; btn.innerText = "正在送出...";
-
+      const q = document.getElementById('suggestion').value.trim();
+      if (!q) return alert("請輸入內容");
+      document.getElementById('submitBtn').innerText = "提交中...";
+      
       const formData = {
         identity: document.querySelector('input[name="identity"]:checked').value,
         dept: document.getElementById('dept').value,
         jobTitle: document.getElementById('jobTitle').value,
         userName: document.getElementById('userName').value,
-        suggestion: suggestion,
+        suggestion: q,
         evidence: document.getElementById('evidence').value
       };
 
       try {
-        const response = await fetch(GAS_URL, {
-          method: "POST",
-          body: JSON.stringify({ action: "save", formData: formData })
-        });
-        const res = await response.json();
-        if (res.status === "success") {
+        const res = await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "save", formData: formData }) });
+        const json = await res.json();
+        if (json.status === "success") {
           document.getElementById('formSection').style.display = 'none';
           document.getElementById('successBox').style.display = 'block';
           window.scrollTo(0,0);
-        } else { throw new Error(res.message); }
-      } catch (e) {
-        alert("送出失敗，請檢查網路或稍後再試。");
-        btn.disabled = false; btn.innerText = "💌 重試送出建議事項";
-      }
+        }
+      } catch (e) { alert("提交失敗"); }
     }
   </script>
 </body>
