@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* 原始配色變數 - 完整保留 */
+      /* 核心溫馨配色 */
       --cream: #FFF9F0;
       --warm-white: #FFFCF8;
       --soft-orange: #FFB088;
@@ -30,7 +30,6 @@
     *{ box-sizing:border-box; margin:0; padding:0; }
 
     body{
-      /* 全局字體設定：思源黑體，字體大小提升至 17px */
       font-family: 'Noto Sans TC', sans-serif;
       color: var(--text);
       background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
@@ -39,10 +38,10 @@
       font-size: 17px;
     }
 
-    /* 版面容器放寬至 1100px 以適應專業表格 */
+    /* 寬版比例 1100px */
     .container{ width: min(1100px, 94vw); margin: 0 auto; }
 
-    /* 頂部導航：比例放大 */
+    /* 頂部導航 */
     .topbar{
       position: sticky;
       top: 0;
@@ -84,14 +83,14 @@
       font-weight: 500;
     }
 
-    /* Hero 區域：標題大幅度加重、比例加大 */
+    /* Hero 區域 - 震撼大標題 42px */
     .hero{ margin-top: 40px; }
     .heroCard{
       position: relative;
       overflow: hidden;
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-soft);
-      min-height: 480px; /* 增加高度 */
+      min-height: 480px;
     }
     .heroCard img{
       width: 100%;
@@ -120,19 +119,15 @@
     }
     .heroText h1{
       margin: 0;
-      font-size: 42px; /* 標題大幅放大 */
+      font-size: 42px;
       color: var(--deep-brown);
       font-weight: 700;
       letter-spacing: 1px;
       line-height: 1.3;
     }
-    .heroText p{
-      margin-top: 15px;
-      color: var(--text-light);
-      font-size: 18px;
-    }
+    .heroText p{ margin-top: 15px; color: var(--text-light); font-size: 18px; }
 
-    /* 引言與趣味互動：增加白平衡（間距） */
+    /* 引言與趣味互動區 */
     .quote-section{
       margin: 45px 0;
       padding: 35px 45px;
@@ -143,7 +138,6 @@
       align-items: center;
       gap: 30px;
     }
-    .quote-icon{ font-size: 48px; color: var(--coral); opacity: 0.8; }
     .quote-text{ font-size: 19px; font-weight: 500; font-style: italic; }
 
     .fun-section{
@@ -159,9 +153,8 @@
     .fun-image{ width: 220px; height: 150px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
     .fun-image img{ width: 100%; height: 100%; object-fit: cover; }
     .fun-text h3{ color: var(--deep-brown); font-size: 22px; margin-bottom: 10px; }
-    .fun-text p{ font-size: 17px; line-height: 1.7; }
 
-    /* 表單區域：專業感與大字體 */
+    /* 表單區域 */
     .section{
       margin: 45px 0;
       padding: 50px;
@@ -175,7 +168,7 @@
     .section-icon img{ width: 100%; height: 100%; object-fit: cover; }
     .section-title h2{ color: var(--deep-brown); font-size: 30px; font-weight: 700; }
 
-    /* 元素尺寸調校 */
+    /* 輸入元素 */
     label{ display: block; font-weight: 700; color: var(--deep-brown); font-size: 18px; margin: 35px 0 15px; }
     label .required{ color: var(--coral); margin-left: 5px; }
 
@@ -202,9 +195,17 @@
       border: 2px solid var(--border);
     }
     .radio-option{ display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 18px; font-weight: 500; }
-    input[type="radio"]{ width: 24px; height: 24px; accent-color: var(--coral); }
+    input[type="radio"]{ width: 24px; height: 24px; accent-color: var(--coral); cursor: pointer; }
 
-    /* AI 比對結果區：表格比例優化 */
+    /* 身份區塊動畫 */
+    #identitySection{
+      display: none;
+      margin-top: 20px;
+      animation: slideIn 0.4s ease;
+    }
+    .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    /* 💡 AI 比對結果表格 */
     .hint{
       margin: 40px 0;
       background: white;
@@ -219,15 +220,15 @@
     @keyframes slideIn{ from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
     
     .hint-title{ color: var(--deep-brown); font-weight: 700; font-size: 24px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
-    .hint-text{ font-size: 18px; color: var(--text); margin-bottom: 30px; line-height: 1.8; background: var(--cream); padding: 25px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+    .hint-text{ font-size: 18px; color: var(--text); margin-bottom: 30px; line-height: 1.8; background: var(--cream); padding: 25px; border-radius: var(--radius-sm); }
 
-    .history-table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-top: 20px; }
+    .history-table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); }
     .history-table { width: 100%; border-collapse: collapse; background: white; font-size: 17px; }
     .history-table th { background: var(--coral); color: white; padding: 22px 18px; text-align: left; font-weight: 700; }
     .history-table td { padding: 22px 18px; border-bottom: 1px solid var(--border); vertical-align: top; }
     .history-table tr:hover { background-color: var(--warm-white); }
 
-    /* 按鈕大尺寸調校 */
+    /* 按鈕 */
     .btn{
       appearance: none; border: none; cursor: pointer; border-radius: 60px;
       padding: 18px 45px; font-weight: 700; font-size: 18px; transition: all 0.3s ease; font-family: inherit;
@@ -239,12 +240,7 @@
     .btnPrimary:hover{ transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255, 140, 105, 0.45); }
     .btnGhost{ background: white; color: var(--warm-brown); border: 2px solid var(--border); margin-top: 25px; }
 
-    /* 身份區域 */
-    #identitySection{ display: none; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn{ from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-    /* 成功頁面：大比例 */
+    /* 成功頁面 */
     .success{
       display: none; margin: 50px 0; border-radius: var(--radius-lg); background: white;
       box-shadow: var(--shadow-soft); overflow: hidden; border: 1px solid var(--border);
@@ -256,7 +252,6 @@
 
     @media (max-width: 768px){
       .form-row{ grid-template-columns: 1fr; }
-      .heroText .title{ padding: 30px; }
       .heroText h1{ font-size: 28px; }
       .brand span:last-child{ display: none; }
     }
@@ -272,7 +267,7 @@
           <span>員工座談會意見平台</span>
         </div>
         <div style="display:flex; gap:15px; align-items:center;">
-          <span class="badge">💛 內部專業對比系統</span>
+          <span class="badge">💛 內部專業比對系統</span>
           <span class="badge" id="today" style="background: var(--cream);"></span>
         </div>
       </div>
@@ -280,7 +275,7 @@
   </div>
 
   <main class="container">
-    <!-- Hero 區域 - 完整保留所有元素 -->
+    <!-- Hero 區域 -->
     <section class="hero">
       <figure class="heroCard">
         <img src="./1770205128981.jpg" alt="座談會主視覺"/>
@@ -311,15 +306,15 @@
       </div>
     </div>
 
-    <!-- 主表單區域 -->
+    <!-- 表單區域 -->
     <section class="section" id="formSection">
       <div class="section-title">
         <div class="section-icon">
-          <img src="./1770205128981.jpg" alt="FormIcon"/>
+          <img src="./1770205128981.jpg" alt="Icon"/>
         </div>
         <div>
           <h2>填寫您的提案</h2>
-          <p class="sub">AI 自動檢索資料庫，提供專業歷次對比</p>
+          <p class="sub">AI 自動檢索歷年資料庫</p>
         </div>
       </div>
 
@@ -327,16 +322,16 @@
         <label>1. 請問您本次提案是否具名？ <span class="required">*</span></label>
         <div class="radio-group">
           <label class="radio-option">
-            <input type="radio" name="identity" value="named" onclick="toggleIdentity(true)">
+            <input type="radio" name="identity" value="named" id="radioNamed" onclick="toggleIdentity(true)">
             <span>記名反映</span>
           </label>
           <label class="radio-option">
-            <input type="radio" name="identity" value="anon" onclick="toggleIdentity(false)">
+            <input type="radio" name="identity" value="anon" id="radioAnon" onclick="toggleIdentity(false)">
             <span>不記名 (匿名)</span>
           </label>
         </div>
 
-        <!-- 身份資訊 -->
+        <!-- 身份區塊：根據 Radio 切換 -->
         <div id="identitySection">
           <label>2. 單位 <span class="required">*</span></label>
           <input type="text" id="dept" placeholder="例：人事室 / 外勤分隊">
@@ -355,22 +350,21 @@
         <label>5. 建議事項 <span class="required">*</span></label>
         <textarea id="suggestion" onblur="checkAI()" rows="6" placeholder="請詳細說明您的建議或問題點..."></textarea>
 
-        <!-- 💡 核心功能：AI 比對表格 -->
+        <!-- AI 比對結果 -->
         <div class="hint" id="dupHint">
-          <div class="hint-title">💡 歷次資料比對結果 (專業分析)</div>
-          <div id="aiSummary" class="hint-text">正在為您搜尋歷年檔案...</div>
+          <div class="hint-title">💡 歷次資料比對結果</div>
+          <div id="aiSummary" class="hint-text">正在分析歷年檔案...</div>
           <div class="history-table-container" id="historyTableContainer"></div>
           <button class="btn btnGhost" onclick="hideHint()">確認並繼續填寫</button>
         </div>
 
         <label>6. 具體事證 / 建議方案</label>
-        <textarea id="evidence" rows="4" placeholder="相關公文編號、具體數據或您的解決方案..."></textarea>
+        <textarea id="evidence" rows="4" placeholder="相關公文編號、數據或解決方案..."></textarea>
 
         <label>7. 附件 (選填)</label>
         <div class="upload-area" style="border: 3px dashed var(--border); border-radius: var(--radius-md); padding: 40px; text-align: center; cursor: pointer; background: var(--cream);" onclick="alert('附件上傳功能測試')">
           <div style="font-size: 50px; margin-bottom: 10px;">📎</div>
           <div style="font-size: 18px; font-weight: 500;">點擊或拖放檔案至此處上傳</div>
-          <div style="font-size: 15px; color: var(--text-light); margin-top: 5px;">支援 PDF, JPG, PNG 格式</div>
         </div>
 
         <button class="btn btnPrimary btn-full" style="margin-top: 40px;" onclick="submitDemo()">
@@ -384,7 +378,7 @@
       <div class="success-header">
         <div class="success-icon">🎉</div>
         <h3>感謝您的分享</h3>
-        <p>您的建議已成功收悉。我們將認真研議您的提案。謝謝您為組織成長所做的努力 💚</p>
+        <p>您的建議已成功收悉。我們將認真研議您的提案 💚</p>
       </div>
       <img src="./1769910482662.jpg" class="success-image" alt="Success"/>
     </section>
@@ -395,11 +389,17 @@
     const d = new Date();
     document.getElementById('today').textContent = `📅 ${d.getFullYear()}年${String(d.getMonth()+1).padStart(2,'0')}月${String(d.getDate()).padStart(2,'0')}日`;
 
+    // 核心切換功能：控制具名區塊顯示
     function toggleIdentity(isNamed) {
-      document.getElementById('identitySection').style.display = isNamed ? 'block' : 'none';
+      const section = document.getElementById('identitySection');
+      if (isNamed) {
+        section.style.display = 'block';
+      } else {
+        section.style.display = 'none';
+      }
     }
 
-    // AI 比對邏輯整合
+    // AI 比對邏輯
     function checkAI() {
       const query = document.getElementById('suggestion').value.trim();
       if (query.length < 5) return;
@@ -409,17 +409,16 @@
       const tableContainer = document.getElementById('historyTableContainer');
 
       hintBox.style.display = 'block';
-      summaryBox.innerHTML = '<div style="color:var(--warm-brown); font-weight:500;">🔍 正在調閱歷年座談會資料庫進行深度比對，請稍候...</div>';
+      summaryBox.innerHTML = '<div style="color:var(--warm-brown); font-weight:500;">🔍 正在比對歷年座談會資料庫，請稍候...</div>';
       tableContainer.innerHTML = '';
 
-      // 調用 GAS
       google.script.run
         .withSuccessHandler(function(res) {
           if (res.status === "success" && res.data) {
             summaryBox.innerText = res.data.summary;
             if (res.data.history && res.data.history.length > 0) {
               let html = '<table class="history-table"><thead><tr>';
-              html += '<th style="width:20%">會議日期</th><th style="width:35%">訴求摘要</th><th style="width:45%">裁示內容與進度</th>';
+              html += '<th style="width:20%">日期</th><th style="width:35%">訴求摘要</th><th style="width:45%">裁示/辦理情形</th>';
               html += '</tr></thead><tbody>';
               res.data.history.forEach(item => {
                 html += `<tr><td><b>${item.date}</b></td><td>${item.proposal}</td><td>${item.conclusion}</td></tr>`;
@@ -427,14 +426,9 @@
               html += '</tbody></table>';
               tableContainer.innerHTML = html;
             } else {
-              summaryBox.innerText = "此議題在歷次座談會中暫無相似紀錄，這是一個全新的建議！";
+              summaryBox.innerText = "此議題在歷次座談會中暫無相似紀錄。";
             }
-          } else {
-            summaryBox.innerText = "檢索功能連線中，請繼續填寫。";
           }
-        })
-        .withFailureHandler(function() {
-          summaryBox.innerText = "目前連線不穩定，請繼續完成您的提案。";
         })
         .processWebQuery(query);
     }
@@ -444,7 +438,7 @@
     }
 
     function submitDemo() {
-      if(!document.getElementById('suggestion').value) return alert("請填寫建議事項內容");
+      if(!document.getElementById('suggestion').value) return alert("請填寫內容");
       document.getElementById('formSection').style.display = 'none';
       document.querySelector('.quote-section').style.display = 'none';
       document.querySelector('.fun-section').style.display = 'none';
