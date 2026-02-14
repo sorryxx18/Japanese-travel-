@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>114年度員工座談會提案平台</title>
-  <!-- 引入現代化思源黑體，徹底取代細明體 -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- 引入現代化思源黑體 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* 溫馨配色 - 原始變數完整保留 */
+      /* 原始配色變數 - 完整保留 */
       --cream: #FFF9F0;
       --warm-white: #FFFCF8;
       --soft-orange: #FFB088;
@@ -20,36 +20,37 @@
       --text: #4A403A;
       --text-light: #7A6B5F;
       --border: #F0E6DC;
-      --shadow-soft: 0 8px 32px rgba(139, 111, 92, 0.12);
-      --shadow-hover: 0 12px 40px rgba(139, 111, 92, 0.18);
-      --radius-lg: 24px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
+      --shadow-soft: 0 12px 40px rgba(139, 111, 92, 0.12);
+      --shadow-hover: 0 20px 50px rgba(139, 111, 92, 0.18);
+      --radius-lg: 32px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
 
     body{
-      /* 強制設定思源黑體，確保不出現細明體 */
-      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      /* 全局字體設定：思源黑體，字體大小提升至 17px */
+      font-family: 'Noto Sans TC', sans-serif;
       color: var(--text);
       background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
       min-height: 100vh;
-      line-height:1.8;
-      font-size: 16px; /* 基礎字體放大 */
+      line-height:1.9;
+      font-size: 17px;
     }
 
-    .container{ width: min(900px, 94vw); margin: 0 auto; }
+    /* 版面容器放寬至 1100px 以適應專業表格 */
+    .container{ width: min(1100px, 94vw); margin: 0 auto; }
 
-    /* 頂部導航 */
+    /* 頂部導航：比例放大 */
     .topbar{
       position: sticky;
       top: 0;
       z-index: 20;
       background: rgba(255, 252, 248, 0.95);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(15px);
       border-bottom: 1px solid var(--border);
-      padding: 14px 0;
+      padding: 18px 0;
     }
     .topbar .inner{
       display: flex;
@@ -59,221 +60,205 @@
     .brand{
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-weight: 700;
       color: var(--deep-brown);
-      font-size: 16px;
+      font-size: 19px;
     }
     .brand-icon{
-      width: 36px;
-      height: 36px;
+      width: 42px;
+      height: 42px;
       background: linear-gradient(135deg, var(--soft-orange), var(--coral));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 20px;
     }
     .badge{
-      font-size: 12px;
-      padding: 6px 14px;
-      border-radius: 20px;
+      font-size: 14px;
+      padding: 8px 18px;
+      border-radius: 30px;
       color: var(--warm-brown);
       background: var(--soft-pink);
       font-weight: 500;
     }
 
-    /* Hero 區域 - 完整保留 */
-    .hero{ margin-top: 24px; }
+    /* Hero 區域：標題大幅度加重、比例加大 */
+    .hero{ margin-top: 40px; }
     .heroCard{
       position: relative;
       overflow: hidden;
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-soft);
-      min-height: 380px;
+      min-height: 480px; /* 增加高度 */
     }
     .heroCard img{
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s ease;
+      transition: transform 0.8s ease;
     }
-    .heroCard:hover img{ transform: scale(1.03); }
     .heroOverlay{
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(107, 83, 68, 0) 0%, rgba(107, 83, 68, 0.7) 100%);
+      background: linear-gradient(180deg, rgba(107, 83, 68, 0) 20%, rgba(107, 83, 68, 0.75) 100%);
     }
     .heroText{
       position: absolute;
-      left: 28px;
-      right: 28px;
-      bottom: 28px;
+      left: 40px;
+      right: 40px;
+      bottom: 40px;
     }
     .heroText .title{
-      background: rgba(255, 252, 248, 0.96);
+      background: rgba(255, 252, 248, 0.97);
       border-radius: var(--radius-md);
-      padding: 28px 32px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 40px 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 850px;
     }
     .heroText h1{
       margin: 0;
-      font-size: 28px;
+      font-size: 42px; /* 標題大幅放大 */
       color: var(--deep-brown);
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      line-height: 1.3;
     }
     .heroText p{
-      margin-top: 10px;
+      margin-top: 15px;
       color: var(--text-light);
-      font-size: 15px;
+      font-size: 18px;
     }
 
-    /* 溫馨引言區 - 完整保留 */
+    /* 引言與趣味互動：增加白平衡（間距） */
     .quote-section{
-      margin: 28px 0;
-      padding: 24px 32px;
-      background: linear-gradient(135deg, var(--soft-pink), #FFF0F5);
+      margin: 45px 0;
+      padding: 35px 45px;
+      background: linear-gradient(135deg, var(--soft-pink), #FFF3F5);
       border-radius: var(--radius-md);
-      border-left: 4px solid var(--coral);
+      border-left: 6px solid var(--coral);
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 30px;
     }
-    .quote-icon{ font-size: 36px; color: var(--coral); flex-shrink: 0; }
-    .quote-text{ font-size: 16px; color: var(--text); font-style: italic; }
+    .quote-icon{ font-size: 48px; color: var(--coral); opacity: 0.8; }
+    .quote-text{ font-size: 19px; font-weight: 500; font-style: italic; }
 
-    /* 趣味互動區 - 完整保留 */
     .fun-section{
-      margin: 24px 0;
-      padding: 24px;
-      background: linear-gradient(135deg, #FFF8E7, var(--cream));
+      margin: 45px 0;
+      padding: 35px;
+      background: linear-gradient(135deg, #FFF9F0, #FFF5E6);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
-      gap: 24px;
-      border: 2px dashed var(--soft-orange);
+      gap: 40px;
+      border: 3px dashed var(--soft-orange);
     }
-    .fun-image{ width: 140px; height: 100px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .fun-image{ width: 220px; height: 150px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
     .fun-image img{ width: 100%; height: 100%; object-fit: cover; }
-    .fun-text h3{ color: var(--deep-brown); font-size: 16px; margin-bottom: 6px; }
-    .fun-text p{ color: var(--text-light); font-size: 14px; margin: 0; }
+    .fun-text h3{ color: var(--deep-brown); font-size: 22px; margin-bottom: 10px; }
+    .fun-text p{ font-size: 17px; line-height: 1.7; }
 
-    /* 表單區域 - 原始結構 */
+    /* 表單區域：專業感與大字體 */
     .section{
-      margin: 24px 0;
-      padding: 28px;
+      margin: 45px 0;
+      padding: 50px;
       background: var(--warm-white);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-soft);
       border: 1px solid var(--border);
     }
-    .section-title{ display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
-    .section-icon{ width: 48px; height: 48px; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--border); background: var(--cream); }
+    .section-title{ display: flex; align-items: center; gap: 20px; margin-bottom: 40px; }
+    .section-icon{ width: 60px; height: 60px; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--border); }
     .section-icon img{ width: 100%; height: 100%; object-fit: cover; }
-    .section-title h2{ color: var(--deep-brown); font-size: 22px; font-weight: 700; }
-    .section-title .sub{ color: var(--text-light); font-size: 13px; font-weight: 400; margin-top: 2px; }
+    .section-title h2{ color: var(--deep-brown); font-size: 30px; font-weight: 700; }
 
-    /* 表單元素 - 加大字體與質感 */
-    label{ display: block; font-weight: 600; color: var(--deep-brown); font-size: 16px; margin: 24px 0 10px; }
-    label .required{ color: var(--coral); margin-left: 4px; }
+    /* 元素尺寸調校 */
+    label{ display: block; font-weight: 700; color: var(--deep-brown); font-size: 18px; margin: 35px 0 15px; }
+    label .required{ color: var(--coral); margin-left: 5px; }
 
-    input[type="text"], textarea, select {
+    input[type="text"], textarea {
       width: 100%;
       border: 2px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 16px 20px;
-      font-size: 16px;
+      padding: 20px;
+      font-size: 17px;
       outline: none;
-      background: var(--warm-white);
-      color: var(--text);
+      background: white;
       transition: all 0.3s ease;
       font-family: inherit;
     }
-    input[type="text"]:focus, textarea:focus {
-      border-color: var(--soft-orange);
-      box-shadow: 0 0 0 4px rgba(255, 176, 136, 0.15);
-      background: #fff;
-    }
+    input[type="text"]:focus, textarea:focus { border-color: var(--soft-orange); box-shadow: 0 0 0 5px rgba(255, 176, 136, 0.15); }
 
-    /* Radio 樣式 - 完整保留 */
     .radio-group{
       display: flex;
-      align-items: center;
-      gap: 28px;
-      margin-top: 12px;
-      padding: 16px 20px;
+      gap: 40px;
+      margin-top: 15px;
+      padding: 25px 35px;
       background: var(--cream);
       border-radius: var(--radius-sm);
       border: 2px solid var(--border);
     }
-    .radio-option{ display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: var(--text); }
-    input[type="radio"]{ width: 20px; height: 20px; cursor: pointer; accent-color: var(--coral); }
+    .radio-option{ display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 18px; font-weight: 500; }
+    input[type="radio"]{ width: 24px; height: 24px; accent-color: var(--coral); }
 
-    /* 💡 AI 歷史對比區塊 - 針對字體與版面優化 */
+    /* AI 比對結果區：表格比例優化 */
     .hint{
-      margin-top: 20px;
-      background: var(--warm-white);
+      margin: 40px 0;
+      background: white;
       border: 2px solid var(--soft-orange);
-      border-left: 8px solid var(--soft-orange);
+      border-left: 10px solid var(--soft-orange);
       border-radius: var(--radius-md);
-      padding: 30px;
+      padding: 40px;
       display: none;
-      animation: slideIn 0.3s ease;
-      box-shadow: var(--shadow-soft);
+      animation: slideIn 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      box-shadow: var(--shadow-hover);
     }
-    @keyframes slideIn{ from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideIn{ from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
     
-    .hint-title{ color: var(--deep-brown); font-weight: 700; font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-    .hint-text{ font-size: 16px; color: var(--text); margin-bottom: 20px; line-height: 1.8; background: var(--cream); padding: 15px; border-radius: var(--radius-sm); }
+    .hint-title{ color: var(--deep-brown); font-weight: 700; font-size: 24px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+    .hint-text{ font-size: 18px; color: var(--text); margin-bottom: 30px; line-height: 1.8; background: var(--cream); padding: 25px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
 
-    /* 比對表格 - 專業且大字體 */
-    .history-table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); }
-    .history-table { width: 100%; border-collapse: collapse; background: white; font-size: 16px; }
-    .history-table th { background: var(--coral); color: white; padding: 16px 12px; text-align: left; font-weight: 500; }
-    .history-table td { padding: 16px 12px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
-    .history-table tr:hover { background-color: var(--cream); }
+    .history-table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-top: 20px; }
+    .history-table { width: 100%; border-collapse: collapse; background: white; font-size: 17px; }
+    .history-table th { background: var(--coral); color: white; padding: 22px 18px; text-align: left; font-weight: 700; }
+    .history-table td { padding: 22px 18px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .history-table tr:hover { background-color: var(--warm-white); }
 
-    /* 身份區域 - 完整保留 */
-    #identitySection{ display: none; animation: fadeIn 0.4s ease; padding-top: 10px; }
-    @keyframes fadeIn{ from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-    /* 按鈕樣式 - 完整保留並微調 */
+    /* 按鈕大尺寸調校 */
     .btn{
-      appearance: none; border: none; cursor: pointer; border-radius: 50px;
-      padding: 14px 28px; font-weight: 600; font-size: 16px; transition: all 0.3s ease; font-family: inherit;
+      appearance: none; border: none; cursor: pointer; border-radius: 60px;
+      padding: 18px 45px; font-weight: 700; font-size: 18px; transition: all 0.3s ease; font-family: inherit;
     }
     .btnPrimary{
       background: linear-gradient(135deg, var(--soft-orange), var(--coral));
-      color: #fff; box-shadow: 0 4px 16px rgba(255, 140, 105, 0.35);
+      color: #fff; box-shadow: 0 8px 25px rgba(255, 140, 105, 0.35);
     }
-    .btnGhost{ background: transparent; color: var(--deep-brown); border: 2px solid var(--border); margin-top: 15px; }
-    .btn-full{ width: 100%; padding: 16px; font-size: 18px; margin-top: 12px; }
+    .btnPrimary:hover{ transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255, 140, 105, 0.45); }
+    .btnGhost{ background: white; color: var(--warm-brown); border: 2px solid var(--border); margin-top: 25px; }
 
-    /* 附件上傳 - 完整保留 */
-    .upload-area{
-      border: 3px dashed var(--border); border-radius: var(--radius-md);
-      padding: 40px 30px; text-align: center; color: var(--text-light); font-size: 15px;
-      cursor: pointer; background: var(--cream); transition: all 0.3s ease;
-    }
-    .upload-area:hover{ border-color: var(--soft-orange); background: #FFF5EE; }
+    /* 身份區域 */
+    #identitySection{ display: none; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn{ from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-    /* 成功頁面 - 完整保留 */
+    /* 成功頁面：大比例 */
     .success{
-      display: none; margin: 24px 0; border-radius: var(--radius-lg); background: var(--warm-white);
-      box-shadow: var(--shadow-soft); overflow: hidden; border: 1px solid var(--border); animation: fadeIn 0.5s ease;
+      display: none; margin: 50px 0; border-radius: var(--radius-lg); background: white;
+      box-shadow: var(--shadow-soft); overflow: hidden; border: 1px solid var(--border);
     }
-    .success-header{ padding: 36px; text-align: center; background: linear-gradient(135deg, var(--soft-pink), #FFF0F5); }
-    .success-icon{ font-size: 64px; margin-bottom: 16px; }
-    .success-header h3{ color: var(--deep-brown); font-size: 26px; margin-bottom: 12px; }
-    .success-image{ width: 100%; height: 280px; object-fit: cover; display: block; }
+    .success-header{ padding: 80px 40px; text-align: center; background: linear-gradient(135deg, var(--soft-pink), #FFF3F8); }
+    .success-icon{ font-size: 100px; margin-bottom: 30px; }
+    .success-header h3{ color: var(--deep-brown); font-size: 40px; margin-bottom: 20px; }
+    .success-image{ width: 100%; height: 400px; object-fit: cover; display: block; }
 
-    @media (max-width: 640px){
+    @media (max-width: 768px){
       .form-row{ grid-template-columns: 1fr; }
-      .fun-section{ flex-direction: column; text-align: center; }
-      .heroText h1{ font-size: 22px; }
+      .heroText .title{ padding: 30px; }
+      .heroText h1{ font-size: 28px; }
+      .brand span:last-child{ display: none; }
     }
   </style>
 </head>
@@ -286,8 +271,8 @@
           <span class="brand-icon">💬</span>
           <span>員工座談會意見平台</span>
         </div>
-        <div style="display:flex; gap:10px; align-items:center;">
-          <span class="badge">💛 內部使用</span>
+        <div style="display:flex; gap:15px; align-items:center;">
+          <span class="badge">💛 內部專業對比系統</span>
           <span class="badge" id="today" style="background: var(--cream);"></span>
         </div>
       </div>
@@ -295,10 +280,10 @@
   </div>
 
   <main class="container">
-    <!-- Hero 區域 - 原始圖片與結構 -->
+    <!-- Hero 區域 - 完整保留所有元素 -->
     <section class="hero">
       <figure class="heroCard">
-        <img src="./1770205128981.jpg" alt="團隊訓練現場"/>
+        <img src="./1770205128981.jpg" alt="座談會主視覺"/>
         <div class="heroOverlay"></div>
         <div class="heroText">
           <div class="title">
@@ -309,37 +294,37 @@
       </figure>
     </section>
 
-    <!-- 引言區 - 原始結構 -->
+    <!-- 溫馨引言區 -->
     <div class="quote-section">
       <span class="quote-icon">✨</span>
-      <p class="quote-text">「您的每一個想法都很珍貴，無論大小，都是我們進步的動力。請放心分享，我們會認真傾聽。」</p>
+      <p class="quote-text">「您的每一個想法都很珍貴。無論大小，都是我們進步的動力。請放心分享，我們會認真傾聽。」</p>
     </div>
 
-    <!-- 趣味區 - 原始結構 -->
+    <!-- 趣味互動區 -->
     <div class="fun-section">
       <div class="fun-image">
         <img src="./266207be87b246eb8d2e11c63eb5d224.png" alt="輕鬆一下"/>
       </div>
       <div class="fun-text">
         <h3>🎭 有話就說，不用客氣！</h3>
-        <p>不管是開心的事、困擾的事，還是「誰敢比我慘」的經歷，都歡迎在這裡分享～我們一起想辦法！</p>
+        <p>不管是開心的事、困擾的事，還是各種工作中的建議，都歡迎在這裡分享。我們一起尋找解決方案！</p>
       </div>
     </div>
 
-    <!-- 表單區域 -->
+    <!-- 主表單區域 -->
     <section class="section" id="formSection">
       <div class="section-title">
         <div class="section-icon">
-          <img src="./1770205128981.jpg" alt="座談會"/>
+          <img src="./1770205128981.jpg" alt="FormIcon"/>
         </div>
         <div>
           <h2>填寫您的提案</h2>
-          <p class="sub">題目基底完整參照原始問卷格式</p>
+          <p class="sub">AI 自動檢索資料庫，提供專業歷次對比</p>
         </div>
       </div>
 
       <div class="cardBody">
-        <label style="font-size:16px;">1. 請問您本次提案是否具名？ <span class="required">*</span></label>
+        <label>1. 請問您本次提案是否具名？ <span class="required">*</span></label>
         <div class="radio-group">
           <label class="radio-option">
             <input type="radio" name="identity" value="named" onclick="toggleIdentity(true)">
@@ -351,9 +336,10 @@
           </label>
         </div>
 
+        <!-- 身份資訊 -->
         <div id="identitySection">
           <label>2. 單位 <span class="required">*</span></label>
-          <input type="text" id="dept" placeholder="例：訓練中心">
+          <input type="text" id="dept" placeholder="例：人事室 / 外勤分隊">
           <div class="form-row">
             <div>
               <label>3. 職稱 <span class="required">*</span></label>
@@ -367,72 +353,73 @@
         </div>
 
         <label>5. 建議事項 <span class="required">*</span></label>
-        <textarea id="suggestion" onblur="checkAI()" rows="4" placeholder="請詳細說明您的建議或問題點..."></textarea>
+        <textarea id="suggestion" onblur="checkAI()" rows="6" placeholder="請詳細說明您的建議或問題點..."></textarea>
 
-        <!-- 💡 AI 歷次對比區塊 (插入點) -->
+        <!-- 💡 核心功能：AI 比對表格 -->
         <div class="hint" id="dupHint">
-          <div class="hint-title">💡 歷次資料比對結果</div>
-          <div id="aiSummary" class="hint-text">正在分析歷年檔案...</div>
+          <div class="hint-title">💡 歷次資料比對結果 (專業分析)</div>
+          <div id="aiSummary" class="hint-text">正在為您搜尋歷年檔案...</div>
           <div class="history-table-container" id="historyTableContainer"></div>
-          <button class="btn btnGhost" onclick="hideHint()">了解，繼續填寫建議</button>
+          <button class="btn btnGhost" onclick="hideHint()">確認並繼續填寫</button>
         </div>
 
         <label>6. 具體事證 / 建議方案</label>
-        <textarea rows="3" placeholder="如公文編號、相關附件說明或您的具體解決方案..."></textarea>
+        <textarea id="evidence" rows="4" placeholder="相關公文編號、具體數據或您的解決方案..."></textarea>
 
-        <label>7. 附件</label>
-        <div class="upload-area" onclick="alert('📎 附件上傳功能示範')">
-          <div class="upload-icon">📎</div>
-          <div>點擊或拖放檔案至此處上傳</div>
-          <div style="font-size:12px; margin-top:8px; color:#B8A99A;">支援照片、PDF 格式</div>
+        <label>7. 附件 (選填)</label>
+        <div class="upload-area" style="border: 3px dashed var(--border); border-radius: var(--radius-md); padding: 40px; text-align: center; cursor: pointer; background: var(--cream);" onclick="alert('附件上傳功能測試')">
+          <div style="font-size: 50px; margin-bottom: 10px;">📎</div>
+          <div style="font-size: 18px; font-weight: 500;">點擊或拖放檔案至此處上傳</div>
+          <div style="font-size: 15px; color: var(--text-light); margin-top: 5px;">支援 PDF, JPG, PNG 格式</div>
         </div>
 
-        <button class="btn btnPrimary btn-full" onclick="submitDemo()">
+        <button class="btn btnPrimary btn-full" style="margin-top: 40px;" onclick="submitDemo()">
           💌 送出建議事項
         </button>
       </div>
     </section>
 
-    <!-- 成功畫面 - 原始結構 -->
+    <!-- 成功畫面 -->
     <section class="success" id="successBox">
       <div class="success-header">
         <div class="success-icon">🎉</div>
         <h3>感謝您的分享</h3>
-        <p>您的建議已成功收悉。謝謝您在繁忙勤務中願意留下寶貴建言，讓我們一起守護彼此、共同成長 💚</p>
+        <p>您的建議已成功收悉。我們將認真研議您的提案。謝謝您為組織成長所做的努力 💚</p>
       </div>
-      <img src="./1769910482662.jpg" class="success-image" alt="感謝有您"/>
+      <img src="./1769910482662.jpg" class="success-image" alt="Success"/>
     </section>
   </main>
 
   <script>
-    // 顯示今日日期
+    // 設置日期
     const d = new Date();
-    document.getElementById('today').textContent = `📅 ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    document.getElementById('today').textContent = `📅 ${d.getFullYear()}年${String(d.getMonth()+1).padStart(2,'0')}月${String(d.getDate()).padStart(2,'0')}日`;
 
     function toggleIdentity(isNamed) {
       document.getElementById('identitySection').style.display = isNamed ? 'block' : 'none';
     }
 
-    // AI 比對功能
+    // AI 比對邏輯整合
     function checkAI() {
-      const val = document.getElementById('suggestion').value.trim();
-      if (val.length < 5) return;
+      const query = document.getElementById('suggestion').value.trim();
+      if (query.length < 5) return;
 
       const hintBox = document.getElementById('dupHint');
       const summaryBox = document.getElementById('aiSummary');
       const tableContainer = document.getElementById('historyTableContainer');
 
       hintBox.style.display = 'block';
-      summaryBox.innerHTML = '<span style="color:var(--warm-brown)">🔍 正在檢索歷年座談會資料庫，請稍候...</span>';
+      summaryBox.innerHTML = '<div style="color:var(--warm-brown); font-weight:500;">🔍 正在調閱歷年座談會資料庫進行深度比對，請稍候...</div>';
       tableContainer.innerHTML = '';
 
+      // 調用 GAS
       google.script.run
         .withSuccessHandler(function(res) {
           if (res.status === "success" && res.data) {
             summaryBox.innerText = res.data.summary;
             if (res.data.history && res.data.history.length > 0) {
               let html = '<table class="history-table"><thead><tr>';
-              html += '<th style="width:20%">日期</th><th style="width:35%">訴求摘要</th><th style="width:45%">裁示/辦理情形</th>';
+              html += '<th style="width:20%">會議日期</th><th style="width:35%">訴求摘要</th><th style="width:45%">裁示內容與進度</th>';
               html += '</tr></thead><tbody>';
               res.data.history.forEach(item => {
                 html += `<tr><td><b>${item.date}</b></td><td>${item.proposal}</td><td>${item.conclusion}</td></tr>`;
@@ -440,16 +427,16 @@
               html += '</tbody></table>';
               tableContainer.innerHTML = html;
             } else {
-              summaryBox.innerText = "此議題在歷次座談會中暫無相似紀錄。";
+              summaryBox.innerText = "此議題在歷次座談會中暫無相似紀錄，這是一個全新的建議！";
             }
           } else {
-            summaryBox.innerText = "無法取得比對資料，請繼續填寫。";
+            summaryBox.innerText = "檢索功能連線中，請繼續填寫。";
           }
         })
         .withFailureHandler(function() {
-          summaryBox.innerText = "系統連線異常。";
+          summaryBox.innerText = "目前連線不穩定，請繼續完成您的提案。";
         })
-        .processWebQuery(val);
+        .processWebQuery(query);
     }
 
     function hideHint() {
@@ -457,7 +444,7 @@
     }
 
     function submitDemo() {
-      if(!document.getElementById('suggestion').value) return alert("請填寫內容");
+      if(!document.getElementById('suggestion').value) return alert("請填寫建議事項內容");
       document.getElementById('formSection').style.display = 'none';
       document.querySelector('.quote-section').style.display = 'none';
       document.querySelector('.fun-section').style.display = 'none';
