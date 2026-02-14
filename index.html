@@ -3,104 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>員工座談會提案系統 - 訓練中心</title>
+    <title>臺北市政府消防局 - 員工座談會提案</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Noto+Sans+TC', sans-serif; background-color: #f8f9fa; }
-        .fire-red { color: #B71C1C; }
-        .bg-fire-red { background-color: #B71C1C; }
-        .card-shadow { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
-        .intercept-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); max-height: 0; opacity: 0; overflow: hidden; }
-        .intercept-card.show { max-height: 500px; opacity: 1; margin-top: 1rem; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #F9FAFB; color: #1F2937; }
+        .fire-red-primary { background-color: #B71C1C; }
+        .fire-red-text { color: #B71C1C; }
+        .form-card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #E5E7EB; }
+        /* 隱藏邏輯的動畫 */
+        .hidden-section { display: none; opacity: 0; transition: all 0.3s ease; }
+        .show-section { display: block; opacity: 1; }
+        .intercept-alert { background-color: #FFFBEB; border-left: 4px solid #F59E0B; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="py-10 px-4">
 
     <div class="max-w-2xl mx-auto">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-slate-800 tracking-tight">員工座談會<span class="fire-red">提案系統</span></h1>
-            <p class="text-slate-500 mt-2">臺北市政府消防局 - 訓練中心</p>
+        <header class="mb-8 border-b border-gray-200 pb-6">
+            <h1 class="text-2xl font-bold text-gray-900">員工座談會<span class="fire-red-text ml-1">提案表單</span></h1>
+            <p class="text-gray-500 mt-1">臺北市政府消防局訓練中心 - 溝通無障礙，意見更透明</p>
         </header>
 
-        <div class="space-y-6">
+        <form id="proposalForm" class="space-y-6">
             
-            <section class="bg-white p-6 rounded-2xl card-shadow border border-slate-100">
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">第一步：基本資料</h2>
+            <div class="form-card p-6">
+                <label class="block text-lg font-bold mb-4">1. 您本次提案是否具名？ <span class="text-red-500">*</span></label>
                 <div class="grid grid-cols-2 gap-4">
+                    <label class="flex items-center justify-center p-4 border-2 rounded-xl cursor-pointer hover:bg-gray-50 transition-all peer-checked:border-red-600" id="label-anonymous">
+                        <input type="radio" name="identity_type" value="anonymous" class="hidden" onclick="toggleIdentity(false)">
+                        <span class="font-medium text-gray-700">不記名 (匿名反映)</span>
+                    </label>
+                    <label class="flex items-center justify-center p-4 border-2 rounded-xl cursor-pointer hover:bg-gray-50 transition-all" id="label-named">
+                        <input type="radio" name="identity_type" value="named" class="hidden" onclick="toggleIdentity(true)">
+                        <span class="font-medium text-gray-700">記名 (提供單位姓名)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="identitySection" class="hidden-section space-y-4">
+                <div class="form-card p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="col-span-2 md:col-span-1">
-                        <label class="block text-slate-700 font-medium mb-1">單位</label>
-                        <input type="text" placeholder="例：訓練中心" class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all">
+                        <label class="block font-bold mb-2">單位</label>
+                        <input type="text" placeholder="例：訓練中心" class="w-full border-gray-300 rounded-lg p-3 border focus:ring-2 focus:ring-red-500 outline-none">
                     </div>
                     <div class="col-span-2 md:col-span-1">
-                        <label class="block text-slate-700 font-medium mb-1">職稱</label>
-                        <input type="text" placeholder="例：隊員" class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all">
+                        <label class="block font-bold mb-2">職稱</label>
+                        <input type="text" placeholder="例：隊員" class="w-full border-gray-300 rounded-lg p-3 border focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block font-bold mb-2">姓名</label>
+                        <input type="text" placeholder="您的真實姓名" class="w-full border-gray-300 rounded-lg p-3 border focus:ring-2 focus:ring-red-500 outline-none">
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section class="bg-white p-6 rounded-2xl card-shadow border border-slate-100">
-                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">第二步：建議事項</h2>
-                <div>
-                    <label class="block text-slate-700 font-medium mb-1">建議事項</label>
-                    <textarea 
-                        id="suggestion"
-                        onblur="checkDuplicate()"
-                        placeholder="請簡述您的建議案..." 
-                        class="w-full h-32 px-4 py-2 rounded-xl border border-slate-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all"
-                    ></textarea>
-                </div>
+            <div class="form-card p-6">
+                <label class="block text-lg font-bold mb-2">建議事項 <span class="text-red-500">*</span></label>
+                <p class="text-sm text-gray-400 mb-3">請簡述您的訴求或問題點</p>
+                <textarea 
+                    id="suggestionInput" 
+                    onblur="simulateAI()"
+                    rows="4" 
+                    class="w-full border-gray-300 rounded-lg p-3 border focus:ring-2 focus:ring-red-500 outline-none"
+                    placeholder="請輸入您的建議..."
+                ></textarea>
 
-                <div id="duplicatePanel" class="intercept-card bg-amber-50 border border-amber-200 rounded-xl p-4">
+                <div id="aiIntercept" class="hidden mt-4 p-4 rounded-lg intercept-alert">
                     <div class="flex items-start">
-                        <span class="text-xl mr-3">💡</span>
-                        <div class="flex-1">
-                            <h3 class="font-bold text-amber-800">發現相似歷史案件</h3>
-                            <p class="text-sm text-amber-700 mt-1">
-                                <b>113年第2次座談會：</b>關於「教官津貼調升」一案，當時答覆：已報請局本部核核中...
-                            </p>
-                            <div class="mt-4 flex gap-3">
-                                <button onclick="cancelSubmit()" class="text-xs bg-white border border-amber-300 px-3 py-1.5 rounded-lg font-bold text-amber-800 hover:bg-amber-100 transition-colors">這就是我要的答案 (取消送出)</button>
-                                <button onclick="nextStep()" class="text-xs bg-amber-600 px-3 py-1.5 rounded-lg font-bold text-white hover:bg-amber-700 transition-colors">內容不同，繼續填寫</button>
+                        <div class="flex-shrink-0 mt-0.5">⚠️</div>
+                        <div class="ml-3">
+                            <p class="text-sm font-bold text-amber-900">偵測到歷年相似提案 (113-05)</p>
+                            <p class="text-xs text-amber-800 mt-1">針對「教官津貼」案，目前進度：局本部簽核中。若您的事證與此不同，請繼續填寫。</p>
+                            <div class="mt-2">
+                                <button type="button" class="text-xs underline font-bold text-amber-900 hover:text-amber-700">查看完整歷史答覆</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="mt-4">
-                    <label class="block text-slate-700 font-medium mb-1">具體事證 / 建議方案</label>
-                    <textarea placeholder="請提供詳細背景或建議做法..." class="w-full h-24 px-4 py-2 rounded-xl border border-slate-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all"></textarea>
-                </div>
-            </section>
-
-            <div class="pb-12">
-                <button class="w-full bg-fire-red text-white font-bold py-4 rounded-2xl shadow-lg shadow-red-200 hover:bg-red-700 active:scale-[0.98] transition-all text-lg">
-                    確認送出提案
-                </button>
             </div>
-        </div>
+
+            <div class="form-card p-6">
+                <label class="block text-lg font-bold mb-2">具體事證 / 建議方案</label>
+                <p class="text-sm text-gray-400 mb-3">例如：發生日期、相關附件說明或您的具體解法</p>
+                <textarea rows="3" class="w-full border-gray-300 rounded-lg p-3 border focus:ring-2 focus:ring-red-500 outline-none"></textarea>
+            </div>
+
+            <div class="form-card p-6">
+                <label class="block text-lg font-bold mb-2">附件</label>
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-red-400 transition-colors cursor-pointer">
+                    <p class="text-gray-500">點擊或拖曳檔案至此上傳 (支援圖片、PDF)</p>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full fire-red-primary text-white font-bold py-4 rounded-xl text-lg hover:bg-red-800 transition-all shadow-lg active:scale-95">
+                送出座談會提案
+            </button>
+        </form>
     </div>
 
     <script>
-        // 模擬 AI 攔截邏輯
-        function checkDuplicate() {
-            const text = document.getElementById('suggestion').value;
-            // 模擬：如果文字包含「教官」或「津貼」，就觸發攔截
-            if (text.includes('教官') || text.includes('津貼')) {
-                document.getElementById('duplicatePanel').classList.add('show');
+        // 1. 處理記名與否的動態隱藏
+        function toggleIdentity(isNamed) {
+            const section = document.getElementById('identitySection');
+            const labelNamed = document.getElementById('label-named');
+            const labelAnon = document.getElementById('label-anonymous');
+
+            if (isNamed) {
+                section.style.display = 'block';
+                labelNamed.classList.add('border-red-600', 'bg-red-50');
+                labelAnon.classList.remove('border-red-600', 'bg-red-50');
             } else {
-                document.getElementById('duplicatePanel').classList.remove('show');
+                section.style.display = 'none';
+                labelAnon.classList.add('border-red-600', 'bg-red-50');
+                labelNamed.classList.remove('border-red-600', 'bg-red-50');
             }
         }
 
-        function cancelSubmit() {
-            alert('感謝您的查閱！系統已為您紀錄此參考紀錄。');
-            location.reload();
-        }
-
-        function nextStep() {
-            alert('請繼續填寫「具體事證」，並簡述與歷年案件之差異。');
-            document.getElementById('duplicatePanel').style.border = '2px solid #22c55e'; // 變綠色表示已確認過
+        // 2. 模擬 AI 攔截功能
+        function simulateAI() {
+            const input = document.getElementById('suggestionInput').value;
+            const aiBox = document.getElementById('aiIntercept');
+            
+            // 模擬語義比對關鍵字
+            if (input.includes('教官') || input.includes('津貼')) {
+                aiBox.classList.remove('hidden');
+            } else {
+                aiBox.classList.add('hidden');
+            }
         }
     </script>
 </body>
