@@ -1,132 +1,136 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <title>消防特考班區隊長意向同意書</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.7/dist/signature_pad.umd.min.js"></script>
-  <style>
-    body{background:linear-gradient(135deg,#1a2980,#26d0ce);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;}
-    .container{width:100%;max-width:740px;background:rgba(255,255,255,.98);border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,.18);overflow:hidden;}
-    header{background:linear-gradient(90deg,#4285f4,#34a853);color:#fff;text-align:center;padding:28px 18px 20px 18px;}
-    header h1{font-size:2.1rem;margin-bottom:8px;}
-    header p{font-size:1.12rem;}
-    .content{padding:32px 22px 25px 22px;}
-    .form-title{font-size:1.32rem;text-align:center;color:#2566c7;font-weight:700;margin-bottom:26px;}
-    form{max-width:410px;margin:0 auto;}
-    .form-group{margin-bottom:23px;}
-    .form-group label{font-weight:600;display:block;margin-bottom:8px;}
-    .form-group input{width:100%;padding:12px;font-size:1.05rem;border-radius:7px;border:1.3px solid #b2bdd2;background:#f7fafc;}
-    .form-group input:focus{border-color:#256ad7;}
-    .radio-group{display:flex;gap:22px;margin-top:8px;}
-    .radio-option{display:flex;align-items:center;gap:6px;}
-    .signature-section{margin:32px 0 16px 0;}
-    .signature-title{text-align:center;margin-bottom:15px;color:#4285f4;font-size:1.13rem;font-weight:600;}
-    .canvas-container{border:2px dashed #c0c0c0;border-radius:13px;background:#f9f9f9;position:relative;overflow:hidden;margin-bottom:18px;}
-    #signatureCanvas{width:100%;min-width:180px;height:150px;display:block;cursor:crosshair;background:#fff;touch-action:none;border-radius:7px;}
-    .canvas-placeholder{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#999;font-size:1.08rem;pointer-events:none;text-align:center;z-index:0;}
-    .controls{display:flex;gap:14px;justify-content:center;}
-    .btn{padding:12px 28px;border:none;border-radius:50px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px;min-width:120px;}
-    .btn-clear{background:linear-gradient(135deg,#ff6b6b,#ff8e8e);color:#fff;}
-    .btn-submit{background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;}
-    .status{display:none;text-align:center;margin-top:28px;}
-    .status-success{background:linear-gradient(135deg,#d4edda,#c3e6cb);color:#155724;padding:27px 16px 17px 16px;border-radius:13px;}
-    .status-error{background:linear-gradient(135deg,#fce8e6,#fbd4d1);color:#c5221f;padding:27px 16px 17px 16px;border-radius:13px;}
-    .status a{color:#256ad7;font-weight:bold;text-decoration:underline;}
-    @media(max-width:650px){
-      .container{max-width:99vw;}
-      .content{padding:17px 6vw 16px 6vw;}
-      .form-title{font-size:1.09rem;}
-      #signatureCanvas{height:95px;}
-      .btn{padding:12px 0;font-size:.99rem;min-width:85px;}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>114年度員工座談會意見平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    body { font-family: 'Noto Sans TC', sans-serif; background-color: #f3f4f6; }
+    .fire-red-text { color: #B71C1C; }
+    .bg-fire-red { background-color: #B71C1C; }
+    .card-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    .photo-bw { filter: grayscale(50%) brightness(80%); transition: 0.3s; }
+    .photo-bw:hover { filter: grayscale(0%) brightness(100%); }
+    /* 隱藏邏輯動畫 */
+    #identitySection { display: none; }
+</style>
 </head>
-<body>
-<div class="container">
-  <header>
-    <h1><i class="fas fa-signature"></i> 消防特考班區隊長意向同意書</h1>
-    <p>請正確填寫下列表單並簽名，完成後點擊提交</p>
-  </header>
-  <div class="content">
-    <div class="form-title">— 意向同意書填寫 —</div>
-    <form id="agreementForm" autocomplete="off">
-      <div class="form-group">
-        <label for="name">姓名 *</label>
-        <input type="text" id="name" required placeholder="請輸入您的姓名">
-      </div>
-      <div class="form-group">
-        <label for="idNumber">身分證字號 *</label>
-        <input type="text" id="idNumber" required placeholder="A123456789">
-      </div>
-      <div class="form-group">
-        <label for="email">公務信箱 *</label>
-        <input type="email" id="email" required placeholder="example@gov.taipei">
-      </div>
-      <div class="form-group">
-        <label for="fillTime">填寫時間 *</label>
-        <input type="datetime-local" id="fillTime" required>
-      </div>
-      <div class="signature-section">
-        <div class="signature-title">簽名 *</div>
-        <div class="canvas-container" style="position:relative;">
-          <canvas id="signatureCanvas"></canvas>
-          <div class="canvas-placeholder" id="canvasPlaceholder"><i class="fas fa-pen"></i> 請在此區域簽名</div>
-        </div>
-        <div class="controls">
-          <button class="btn btn-clear" type="button" id="clearBtn"><i class="fas fa-eraser"></i> 清除簽名</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>114年消防特考班區隊長意願 *</label>
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="willingness" value="有意願" required checked> 有意願
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="willingness" value="無意願"> 無意願
-          </label>
-        </div>
-      </div>
-      <div class="controls">
-        <button class="btn btn-submit" type="submit"><i class="fas fa-paper-plane"></i> 提交同意書</button>
-      </div>
-    </form>
-    <div class="status status-success" id="successMsg">
-      <i class="fas fa-check-circle" style="font-size:2rem;"></i>
-      <div style="font-weight:700;font-size:1.10rem;margin-top:6px;">表單已成功送出！</div>
-      <div id="pdfLink" style="margin:14px 0 7px 0"></div>
-    </div>
-    <div class="status status-error" id="errorMsg">
-      <i class="fas fa-exclamation-triangle" style="font-size:2rem;"></i>
-      <div style="font-weight:700;font-size:1.08rem;margin-top:5px;">送出失敗</div>
-      <div id="errDetail" style="margin-top:7px;"></div>
-    </div>
-  </div>
-</div>
-<script>
-  // n8n Webhook 連結，改成你自己的
-  const webhookUrl = "https://n8n-emculoyh.ap-northeast-1.clawcloudrun.com/webhook/fire-sign";
+<body class="pb-10">
 
-  // ==== 畫布自適應與簽名提示 ====
-  const canvas = document.getElementById('signatureCanvas');
-  let signaturePad;
-  function resizeCanvas(){
-    const container = canvas.parentElement;
-    const ratio = Math.max(window.devicePixelRatio||1,1);
-    let oldData = signaturePad ? signaturePad.toData() : null;
-    canvas.width = container.clientWidth * ratio;
-    canvas.height = parseFloat(getComputedStyle(canvas).height) * ratio;
-    canvas.style.width = container.clientWidth+'px';
-    const ctx = canvas.getContext('2d');
-    ctx.setTransform(1,0,0,1,0,0);
-    ctx.scale(ratio,ratio);
-    if(signaturePad){
-      signaturePad.clear();
-      signaturePad = new SignaturePad(canvas,{backgroundColor:'#fff',penColor:'#222'});
-      if(oldData) signaturePad.fromData(oldData);
-    }else{
-      signaturePad = new SignaturePad(canvas,{backgroundColor:'#fff',penColor:'#222'});
+<div class="max-w-3xl mx-auto px-4">
+    <header class="mt-6 relative rounded-3xl overflow-hidden h-[350px] shadow-2xl">
+        <img src="10686.jpg" class="w-full h-full object-cover" alt="訓練講解現場">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        <div class="absolute bottom-8 left-8 right-8 text-white">
+            <h1 class="text-3xl font-bold">114年度員工座談會</h1>
+            <p class="opacity-90 mt-2 font-light tracking-wide">每一份建議，都是我們持續精進的力量</p>
+        </div>
+    </header>
+
+    <section class="mt-8 bg-white p-6 rounded-2xl card-shadow border-l-8 border-[#2F4F4F]">
+        <p class="text-gray-700 leading-relaxed">
+            親愛的同仁您好：我們致力於建立一個更友善、更專業的工作環境。本平台提供您提出建言的管道，系統會同步對比歷年資料，協助您的聲音更精準地傳遞給決策團隊。
+        </p>
+    </section>
+
+    <div class="grid grid-cols-2 gap-4 mt-6">
+        <div class="relative rounded-2xl overflow-hidden h-48 shadow-lg">
+            <img src="10563.jpg" class="w-full h-full object-cover" alt="勤務現場">
+            <div class="absolute bottom-0 w-full bg-black/50 text-white text-xs py-2 text-center">勤務紀實：專業與守護</div>
+        </div>
+        <div class="relative rounded-2xl overflow-hidden h-48 shadow-lg">
+            <img src="10380.png" class="w-full h-full object-cover photo-bw" alt="艱困歷程">
+            <div class="absolute bottom-0 w-full bg-black/50 text-white text-xs py-2 text-center">歷程回顧：淬鍊與堅持</div>
+        </div>
+    </div>
+
+    <form class="mt-8 space-y-6">
+        
+        <div class="bg-white p-8 rounded-2xl card-shadow">
+            <label class="block text-lg font-bold text-gray-800 mb-4">1. 您本次提案是否具名？ <span class="text-red-600">*</span></label>
+            <div class="grid grid-cols-2 gap-4">
+                <button type="button" onclick="toggleIdentity(true)" id="btnNamed" class="border-2 border-gray-200 p-4 rounded-xl hover:border-red-600 transition-all font-medium text-gray-700">記名反映</button>
+                <button type="button" onclick="toggleIdentity(false)" id="btnAnon" class="border-2 border-gray-200 p-4 rounded-xl hover:border-red-600 transition-all font-medium text-gray-700">匿名反映</button>
+            </div>
+        </div>
+
+        <div id="identitySection" class="bg-white p-8 rounded-2xl card-shadow space-y-6">
+            <div>
+                <label class="block font-bold text-gray-800 mb-2">2. 單位 <span class="text-red-600">*</span></label>
+                <input type="text" placeholder="例：訓練中心" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold text-gray-800 mb-2">3. 職稱 <span class="text-red-600">*</span></label>
+                    <input type="text" placeholder="例：隊員" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+                <div>
+                    <label class="block font-bold text-gray-800 mb-2">4. 姓名 <span class="text-red-600">*</span></label>
+                    <input type="text" placeholder="真實姓名" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none">
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl card-shadow">
+            <label class="block text-lg font-bold text-gray-800 mb-2">5. 建議事項 <span class="text-red-600">*</span></label>
+            <textarea id="suggestion" onblur="checkAI()" rows="4" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none" placeholder="請簡述您的建議案內容..."></textarea>
+            
+            <div id="aiPrompt" class="hidden mt-4 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                <p class="text-sm font-bold text-amber-900 leading-none">💡 發現相似歷史提案 (113-05)</p>
+                <p class="text-xs text-amber-800 mt-2">針對您提到的項目，目前進度：局本部已完成審查。若您的建議有不同之處，請繼續填寫。</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl card-shadow">
+            <label class="block text-lg font-bold text-gray-800 mb-2">6. 具體事證 / 建議方案</label>
+            <textarea rows="3" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none" placeholder="請提供詳細背景、地點、法規依據或您的解決方案..."></textarea>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl card-shadow text-center">
+            <label class="block text-left text-lg font-bold text-gray-800 mb-4">7. 附件</label>
+            <div class="border-2 border-dashed border-gray-300 rounded-2xl p-8 hover:border-red-400 cursor-pointer transition-colors">
+                <p class="text-gray-400 text-sm">點擊或拖放檔案至此處上傳</p>
+            </div>
+        </div>
+
+        <button type="submit" class="w-full bg-fire-red text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-red-800 transition-all text-lg active:scale-95">
+            送出建議事項
+        </button>
+    </form>
+
+    <footer class="text-center mt-12 text-gray-400 text-xs">
+        臺北市政府消防局 訓練中心 敬啟
+    </footer>
+</div>
+
+<script>
+    function toggleIdentity(isNamed) {
+        const section = document.getElementById('identitySection');
+        const bNamed = document.getElementById('btnNamed');
+        const bAnon = document.getElementById('btnAnon');
+
+        if (isNamed) {
+            section.style.display = 'block';
+            bNamed.classList.add('border-red-600', 'bg-red-50');
+            bAnon.classList.remove('border-red-600', 'bg-red-50');
+        } else {
+            section.style.display = 'none';
+            bAnon.classList.add('border-red-600', 'bg-red-50');
+            bNamed.classList.remove('border-red-600', 'bg-red-50');
+        }
     }
-    signaturePad.addEventListener('beginStroke',()=>{document.getElementById('canvasPlaceholder').style.display='none';});
+
+    function checkAI() {
+        const val = document.getElementById('suggestion').value;
+        const prompt = document.getElementById('aiPrompt');
+        if (val.includes('教官') || val.includes('津貼')) {
+            prompt.classList.remove('hidden');
+        } else {
+            prompt.classList.add('hidden');
+        }
+    }
+</script>
+</body>
+</html>
