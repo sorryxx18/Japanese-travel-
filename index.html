@@ -1,346 +1,107 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日本關西互動行程</title>
+    <title>員工座談會提案系統 - 訓練中心</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-        
-        .nav-link {
-            @apply px-4 py-2 text-stone-700 rounded-lg hover:bg-stone-200 transition-colors duration-200;
-        }
-        .nav-link.active {
-            @apply bg-emerald-600 text-white shadow-md font-semibold;
-        }
-        .tab-button {
-            @apply px-4 py-2 rounded-t-lg text-lg font-medium text-stone-600 transition-all duration-200 border-b-2 border-transparent;
-        }
-        .tab-button.active {
-            @apply text-emerald-700 border-emerald-700;
-        }
-        .filter-button {
-            @apply px-4 py-1.5 text-sm rounded-full border border-stone-300 text-stone-700 hover:bg-stone-200 transition-all duration-200;
-        }
-        .filter-button.active {
-            @apply bg-emerald-600 text-white border-emerald-600;
-        }
-        .content-hidden {
-            @apply hidden;
-        }
-        .timeline-item {
-            @apply relative pl-8 sm:pl-10 pb-6;
-        }
-        .timeline-item:before {
-            @apply content-[''] absolute left-3 sm:left-4 top-1 w-2 h-2 rounded-full bg-emerald-500;
-        }
-        .timeline-item:after {
-            @apply content-[''] absolute left-[15.5px] sm:left-[19.5px] top-4 h-full w-0.5 bg-stone-300;
-        }
-        .timeline-item:last-child:after {
-            @apply h-0;
-        }
+        body { font-family: 'Noto+Sans+TC', sans-serif; background-color: #f8f9fa; }
+        .fire-red { color: #B71C1C; }
+        .bg-fire-red { background-color: #B71C1C; }
+        .card-shadow { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+        .intercept-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); max-height: 0; opacity: 0; overflow: hidden; }
+        .intercept-card.show { max-height: 500px; opacity: 1; margin-top: 1rem; }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800 font-sans">
-    <!-- Chosen Palette: Warm Neutral (Stone/White) with Emerald green and Stone brown accents -->
-    <!-- Application Structure Plan: The SPA uses a sticky top navigation bar ("行程總覽", "每日行程", "美食地圖", "購物天堂") to allow users to jump to different thematic sections. This structure is superior to the original linear PDF because the user's new request is about research (food/shopping). This design allows them to either view recommendations integrated into the "每日行程" (via a tabbed interface for Day 1-5) or browse all recommendations in a filterable database-like view ("美食地圖", "購物天堂"). This serves both planning and research user-goals effectively. JS handles the smooth-scrolling navigation, the daily tab switching, and the category filtering. -->
-    <!-- Visualization & Content Choices: 
-        - Itinerary Overview: HTML/Tailwind cards. Goal: Inform. Interaction: None. Justification: Clear, scannable summary of key data.
-        - Daily Itinerary: HTML/Tailwind Tabs. Goal: Organize. Interaction: Click tabs (Day 1-5) to show/hide daily plans. Justification: Manages a large amount of information cleanly without overwhelming the user.
-        - Daily Plan (Original): HTML/Tailwind vertical timeline. Goal: Show sequence. Interaction: Read. Justification: Visually represents the flow of a day clearly.
-        - Food/Shopping Recommendations: HTML/Tailwind Card Grids. Goal: Inform/Organize. Interaction: (In #food/#shopping sections) Filter buttons (onclick) toggle card visibility via JS based on `data-category`. Justification: This is the most effective way to present the newly researched data, allowing user-driven discovery and filtering (e.g., "Show me only Osaka Michelin").
-        - No charts are used as the source report is a qualitative itinerary, and no quantitative data is present that would benefit from charting.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<body class="p-4 md:p-8">
 
-    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <nav class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
-            <h1 class="text-2xl font-bold text-emerald-700">
-                🇯🇵 日本關西互動行程
-            </h1>
-            <div id="nav-links" class="flex flex-wrap gap-2 mt-2 sm:mt-0">
-                <a href="#overview" class="nav-link">行程總覽</a>
-                <a href="#daily" class="nav-link">每日行程</a>
-                <a href="#food" class="nav-link">美食地圖</a>
-                <a href="#shopping" class="nav-link">購物天堂</a>
-            </div>
-        </nav>
-    </header>
+    <div class="max-w-2xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-800 tracking-tight">員工座談會<span class="fire-red">提案系統</span></h1>
+            <p class="text-slate-500 mt-2">臺北市政府消防局 - 訓練中心</p>
+        </header>
 
-    <main class="max-w-6xl mx-auto p-4 sm:p-6 space-y-16">
-        
-        <section id="overview" class="scroll-mt-20">
-            <h2 class="text-3xl font-bold text-stone-800 mb-6">✈️ 行程總覽</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
-                    <h3 class="text-xl font-semibold mb-3 text-emerald-700">航班資訊</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <strong class="text-stone-600">去程: 11/13 (四)</strong>
-                            <p>國泰航空 CX564</p>
-                            <p>11:15 (TPE T1) → 14:55 (KIX T1)</p>
-                        </div>
-                        <div>
-                            <strong class="text-stone-600">回程: 11/17 (一)</strong>
-                            <p>國泰航空 CX565</p>
-                            <p>16:15 (KIX T1) → 18:30 (TPE T1)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
-                    <h3 class="text-xl font-semibold mb-3 text-emerald-700">🏨 大阪住宿</h3>
-                    <p class="font-semibold">KOKO HOTEL Osaka Namba Sennichimae</p>
-                    <p class="text-sm text-stone-600">11/13 (四) - 11/15 (六)</p>
-                    <a href="https://maps.app.goo.gl/SqPadR866Dv4205ZA" target="_blank" class="text-emerald-600 hover:underline text-sm break-all">
-                        https://maps.app.goo.gl/SqPadR866Dv4205ZA
-                    </a>
-                </div>
-
-                <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
-                    <h3 class="text-xl font-semibold mb-3 text-emerald-700">🏨 京都住宿</h3>
-                    <p class="font-semibold">Hotel Briller Kyoto Station South</p>
-                    <p class="text-sm text-stone-600">11/15 (六) - 11/17 (一)</p>
-                    <a href="https://maps.app.goo.gl/J2WNR6jmyGvZkjpJ7" target="_blank" class="text-emerald-600 hover:underline text-sm break-all">
-                        https://maps.app.goo.gl/J2WNR6jmyGvZkjpJ7
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="daily" class="scroll-mt-20">
-            <h2 class="text-3xl font-bold text-stone-800 mb-6">📅 每日行程與推薦</h2>
+        <div class="space-y-6">
             
-            <div class="border-b border-stone-300 flex flex-wrap -mb-px">
-                <button class="tab-button" data-tab="day1">第一天</button>
-                <button class="tab-button" data-tab="day2">第二天</button>
-                <button class="tab-button" data-tab="day3">第三天</button>
-                <button class="tab-button" data-tab="day4">第四天</button>
-                <button class="tab-button" data-tab="day5">第五天</button>
+            <section class="bg-white p-6 rounded-2xl card-shadow border border-slate-100">
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">第一步：基本資料</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2 md:col-span-1">
+                        <label class="block text-slate-700 font-medium mb-1">單位</label>
+                        <input type="text" placeholder="例：訓練中心" class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all">
+                    </div>
+                    <div class="col-span-2 md:col-span-1">
+                        <label class="block text-slate-700 font-medium mb-1">職稱</label>
+                        <input type="text" placeholder="例：隊員" class="w-full px-4 py-2 rounded-xl border border-slate-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all">
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white p-6 rounded-2xl card-shadow border border-slate-100">
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">第二步：建議事項</h2>
+                <div>
+                    <label class="block text-slate-700 font-medium mb-1">建議事項</label>
+                    <textarea 
+                        id="suggestion"
+                        onblur="checkDuplicate()"
+                        placeholder="請簡述您的建議案..." 
+                        class="w-full h-32 px-4 py-2 rounded-xl border border-slate-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all"
+                    ></textarea>
+                </div>
+
+                <div id="duplicatePanel" class="intercept-card bg-amber-50 border border-amber-200 rounded-xl p-4">
+                    <div class="flex items-start">
+                        <span class="text-xl mr-3">💡</span>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-amber-800">發現相似歷史案件</h3>
+                            <p class="text-sm text-amber-700 mt-1">
+                                <b>113年第2次座談會：</b>關於「教官津貼調升」一案，當時答覆：已報請局本部核核中...
+                            </p>
+                            <div class="mt-4 flex gap-3">
+                                <button onclick="cancelSubmit()" class="text-xs bg-white border border-amber-300 px-3 py-1.5 rounded-lg font-bold text-amber-800 hover:bg-amber-100 transition-colors">這就是我要的答案 (取消送出)</button>
+                                <button onclick="nextStep()" class="text-xs bg-amber-600 px-3 py-1.5 rounded-lg font-bold text-white hover:bg-amber-700 transition-colors">內容不同，繼續填寫</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <label class="block text-slate-700 font-medium mb-1">具體事證 / 建議方案</label>
+                    <textarea placeholder="請提供詳細背景或建議做法..." class="w-full h-24 px-4 py-2 rounded-xl border border-slate-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all"></textarea>
+                </div>
+            </section>
+
+            <div class="pb-12">
+                <button class="w-full bg-fire-red text-white font-bold py-4 rounded-2xl shadow-lg shadow-red-200 hover:bg-red-700 active:scale-[0.98] transition-all text-lg">
+                    確認送出提案
+                </button>
             </div>
+        </div>
+    </div>
 
-            <div class="bg-white rounded-b-2xl shadow-lg border border-stone-200 p-6 sm:p-8">
-                
-                <div id="day1-content" class="daily-content space-y-8">
-                    <h3 class="text-2xl font-semibold text-emerald-700">11/13 (四) 第一天：大阪抵達 & 市區</h3>
-                    
-                    <div>
-                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">14:55 抵達關西空港</strong>
-                            <p class="text-sm text-stone-600">搭乘機場接送前往大阪飯店。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">阿倍野展望台 (HARUKAS)</strong>
-                            <p class="text-sm text-stone-600">地鐵前往。60層摩天大樓，360度觀賞大阪市容。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">道頓堀 (晚餐、逛街)</strong>
-                            <p class="text-sm text-stone-600">感受大阪風情，鄰近心齋橋購物聖地。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">返回飯店</strong>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200">
-                        <div>
-                            <h4 class="text-xl font-semibold mb-4">🍜 美食推薦 (附近)</h4>
-                            <ul class="list-disc list-inside space-y-2 text-stone-700">
-                                <li><strong>美津濃 (Mizuno) - 道頓堀:</strong> [米其林必比登] 著名的大阪燒名店，常需排隊。</li>
-                                <li><strong>Kushikatsu Daruma - 天王寺/道頓堀:</strong> [小吃] 知名串炸連鎖店，"禁止二次沾醬"。</li>
-                                <li><strong>章魚燒 (くれおーる) - 道頓堀:</strong> [小吃] 嘗試道地的章魚燒，外酥內軟。</li>
-                                <li><strong>Harukas 300 餐廳:</strong> [景觀餐廳] 在展望台大樓內享用晚餐，欣賞夜景。</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold mb-4">🛍️ 購物推薦 (附近)</h4>
-                            <ul class="list-disc list-inside space-y-2 text-stone-700">
-                                <li><strong>Abeno Harukas 近鐵本店:</strong> [百貨] 位於展望台下方，大型百貨公司。</li>
-                                <li><strong>心齋橋筋商店街:</strong> [服飾/藥妝] 經典購物長廊，品牌、藥妝店林立。</li>
-                                <li><strong>Don Quijote (唐吉訶德) - 道頓堀:</strong> [伴手禮] 24小時營業的
-                                激安殿堂，適合採買零食伴手禮。</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    <script>
+        // 模擬 AI 攔截邏輯
+        function checkDuplicate() {
+            const text = document.getElementById('suggestion').value;
+            // 模擬：如果文字包含「教官」或「津貼」，就觸發攔截
+            if (text.includes('教官') || text.includes('津貼')) {
+                document.getElementById('duplicatePanel').classList.add('show');
+            } else {
+                document.getElementById('duplicatePanel').classList.remove('show');
+            }
+        }
 
-                <div id="day2-content" class="daily-content content-hidden space-y-8">
-                    <h3 class="text-2xl font-semibold text-emerald-700">11/14 (五) 第二天：大阪文化 & 購物</h3>
-                    
-                    <div>
-                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">10:00 武士道體驗</strong>
-                            <p class="text-sm text-stone-600">學習武士禮儀、基本劍型，並體驗斬擊。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">午餐 (蕎麥麵)</strong>
-                            <p class="text-sm text-stone-600">於體驗地點附近享用。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">大阪城</strong>
-                            <p class="text-sm text-stone-600">步行前往，參觀豐臣秀吉的居城。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">道頓堀 (晚餐、逛街)</strong>
-                            <p class="text-sm text-stone-600">再次吃爆買爆！</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">返回飯店 (整理行李)</strong>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200">
-                        <div>
-                            <h4 class="text-xl font-semibold mb-4">🍜 美食推薦 (附近)</h4>
-                            <ul class="list-disc list-inside space-y-2 text-stone-700">
-                                <li><strong>太庵 (Taian) - 心齋橋:</strong> [米其林三星] 需預約的炭火燒烤懷石料理。</li>
-                                <li><strong>蟹道樂 (Kani Doraku) - 道頓堀:</strong> [特色] 標誌性的大螃蟹招牌，品嚐各式螃蟹料理。</li>
-                                <li><strong>神座拉麵 (Kamukura) - 道頓堀:</strong> [拉麵] 以"美味的湯"聞名，湯頭清甜。</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold mb-4">🛍️ 購物推薦 (附近)</h4>
-                            <ul class="list-disc list-inside space-y-2 text-stone-700">
-                                <li><strong>Amerikamura (美國村):</strong> [服飾] 適合尋找潮流服飾、古著和青年文化。</li>
-                                <li><strong>Namba Parks:</strong> [商場] 結合商場與屋頂花園的複合式建築，品牌眾多。</li>
-                                <li><strong>BEAMS - 心齋橋:</strong> [服飾] 日本知名選物店，有多種風格的服飾。</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        function cancelSubmit() {
+            alert('感謝您的查閱！系統已為您紀錄此參考紀錄。');
+            location.reload();
+        }
 
-                <div id="day3-content" class="daily-content content-hidden space-y-8">
-                    <h3 class="text-2xl font-semibold text-emerald-700">11/15 (六) 第三天：奈良尋鹿 & 移師京都</h3>
-                    
-                    <div>
-                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">09:00 大阪飯店退房</strong>
-                            <p class="text-sm text-stone-600">搭乘包車前往奈良。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">奈良公園 (東大寺、春日大社)</strong>
-                            <p class="text-sm text-stone-600">參觀世界遺產，與神使小鹿互動 (僅能餵食鹿仙貝)。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">12:00 午餐 (已訂位)</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">前往京都飯店</strong>
-                            <p class="text-sm text-stone-600">搭乘包車，入住 Hotel Briller。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">鴨川散步 (可選)</strong>
-                            <p class="text-sm text-stone-600">體驗「飛び石」(跳跳石)。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">18:30 晚餐 (已訂位)</strong>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200">
-                        <div>
-                            <h4 class="text-xl font-semibold mb-4">🍜 美食推薦 (附近)</h4>
-                            <ul class="list-disc list-inside space-y-2 text-stone-700">
-                                <li><strong>中谷堂 (Nakatanidou) - 奈良:</strong> [小吃] 必看的搗麻糬表演，艾草麻糬(よもぎ餅)超好吃。</li>
-                                <li><strong>柿之葉壽司 (Kakinoha-zushi) - 奈良:</strong> [特色] 奈良鄉土料理，用柿子葉包裹的壽司。</li>
-                                <li><strong>祇園丸山 (Gion Maruyama) - 京都祇園:</strong> [米其林二星] (晚餐地點附近) 傳統懷石料理，需預約。</li>
-                                <li><strong>Pontocho (先斗町) - 京都:</strong> [餐飲街] (晚餐地點附近) 鴨川旁的狹窄小巷，充滿各式餐廳。</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold mb-4">🛍️ 購物推薦 (附近)</h4>
-                            <ul class="list-disc list-inside space-y-2 text-stone-700">
-                                <li><strong>東向商店街 (Higashimuki) - 奈良:</strong> [伴手禮] 位於近鐵奈良站旁，各式奈良土產、紀念品。</li>
-                                <li><strong>祇園/花見小路 - 京都:</strong> [伴手禮] 購買京扇、吸油面紙 (Yojiya) 等京都特色工藝品。</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="day4-content" class="daily-content content-hidden space-y-8">
-                    <h3 class="text-2xl font-semibold text-emerald-700">11/16 (日) 第四天：京都嵐山一日遊</h3>
-                    
-                    <div>
-                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">09:30 搭乘專車</strong>
-                            <p class="text-sm text-stone-600">於京都車站八條口觀光巴士停車場出發。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">嵐山觀光火車</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">保津川遊船</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">午餐 (渡月橋附近)</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">竹林小徑、天龍寺</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">18:00 專車回飯店</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">晚餐 & 整理行李</strong>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-stone-200">
-                        <div>
-                            <h4 class="text-xl font-semibold mb-4">🍜 美食推薦 (附近)</h4>
-                            <ul class="list-disc list-inside space-y-2 text-stone-700">
-                                <li><strong>Yudofu Sagano (嵯峨野) - 嵐山:</strong> [特色] 品嚐嵐山著名的湯豆腐料理。</li>
-                                <li><strong>% Arabica - 嵐山:</strong> [咖啡] 位於渡月橋旁的知名咖啡店，風景絕佳。</li>
-                                <li><strong>嵐山よしむら (Yoshimura) - 嵐山:</strong> [特色] 邊欣賞渡月橋美景邊享用蕎麥麵。</li>
-                                <li><strong>京都拉麵小路 - 京都車站:</strong> [拉麵] (飯店附近) 匯集日本各地拉麵名店。</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold mb-4">🛍️ 購物推薦 (附近)</h4>
-                            <ul class="list-disc list-inside space-y-2 text-stone-700">
-                                <li><strong>嵐山商店街:</strong> [伴手禮] 販售各式京都醬菜、和菓子、竹製品等工藝品。</li>
-                                <li><strong>JR 京都伊勢丹 (Isetan):</strong> [百貨] (飯店附近) 綜合型百貨，地下街美食與伴手禮是重點。</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="day5-content" class="daily-content content-hidden space-y-8">
-                    <h3 class="text-2xl font-semibold text-emerald-700">11/17 (一) 第五天：京都 & 歡樂返航</h3>
-                    
-                    <div>
-                        <h4 class="text-xl font-semibold mb-4">本日計畫</h4>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">飯店退房</strong>
-                            <p class="text-sm text-stone-600">睡飽後退房，行李寄放飯店。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">早午餐</strong>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">12:00 機場接送</strong>
-                            <p class="text-sm text-stone-600">出發前往關西國際空港。</p>
-                        </div>
-                        <div class="timeline-item">
-                            <strong class="text-stone-700">機場購物 & 用餐</strong>
- 
+        function nextStep() {
+            alert('請繼續填寫「具體事證」，並簡述與歷年案件之差異。');
+            document.getElementById('duplicatePanel').style.border = '2px solid #22c55e'; // 變綠色表示已確認過
+        }
+    </script>
+</body>
+</html>
