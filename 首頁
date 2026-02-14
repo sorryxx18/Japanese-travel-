@@ -1,136 +1,178 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>114年度員工座談會意見平台</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-    body { font-family: 'Noto Sans TC', sans-serif; background-color: #f3f4f6; }
-    .fire-red-text { color: #B71C1C; }
-    .bg-fire-red { background-color: #B71C1C; }
-    .card-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-    .photo-bw { filter: grayscale(50%) brightness(80%); transition: 0.3s; }
-    .photo-bw:hover { filter: grayscale(0%) brightness(100%); }
-    /* 隱藏邏輯動畫 */
-    #identitySection { display: none; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>114年度員工座談會提案平台</title>
+  <style>
+    :root{
+      --ink:#2F4F4F;         /* 深墨綠 */
+      --text:#333;
+      --muted:#6B7280;
+      --bg:#ffffff;
+      --panel:#F5F5F5;       /* 淡灰 */
+      --card:#ffffff;
+      --accent:#8B6F47;      /* 金銅 */
+      --warm:#FFF8E1;        /* 淡米黃提醒 */
+      --border:#E5E7EB;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
+      --radius: 18px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Noto Sans TC", sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.6;
+    }
+    .container{ width:min(960px, 92vw); margin:0 auto; }
+    .topbar{ position:sticky; top:0; z-index:20; background:rgba(255,255,255,.86); backdrop-filter: blur(10px); border-bottom:1px solid rgba(229,231,235,.8); }
+    .topbar .inner{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:700; color:var(--ink); }
+    .badge{ font-size:12px; padding:4px 10px; border:1px solid var(--border); border-radius:999px; color:var(--muted); background:#fff; }
+    
+    /* Hero Section */
+    .heroCard{ position:relative; overflow:hidden; border-radius:var(--radius); box-shadow: var(--shadow); border:1px solid rgba(229,231,235,.7); min-height: 320px; margin-top: 20px; }
+    .heroCard img{ width:100%; height:100%; object-fit:cover; display:block; filter: brightness(0.9); }
+    .heroOverlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%); }
+    .heroText{ position:absolute; left:18px; right:18px; bottom:18px; }
+    .heroText .title{ background: rgba(255,255,255,.92); border-radius: 16px; padding:20px; }
+    .heroText h1{ margin:0; font-size: 26px; color:var(--ink); }
+
+    /* Form Design */
+    .section{ margin:18px 0; padding:18px; background:var(--panel); border-radius: var(--radius); }
+    .card{ background:var(--card); border:1px solid var(--border); border-radius: var(--radius); box-shadow: 0 6px 16px rgba(0,0,0,.06); margin-top:14px; }
+    .cardHeader{ display:flex; gap:12px; align-items:center; padding:14px 16px; border-bottom:1px solid var(--border); background: #fafafa; }
+    .thumb{ width:56px; height:44px; border-radius: 12px; overflow:hidden; flex:0 0 auto; border:1px solid #ddd; }
+    .thumb img{ width:100%; height:100%; object-fit:cover; }
+    .cardBody{ padding:16px; }
+    
+    label{ display:block; font-weight:700; color:#374151; font-size:14px; margin:15px 0 6px; }
+    input, textarea, select{ width:100%; border:1px solid var(--border); border-radius: 14px; padding:12px; font-size:14px; outline:none; }
+    input:focus, textarea:focus{ border-color: var(--ink); box-shadow: 0 0 0 4px rgba(47,79,79,.1); }
+
+    /* 動態隱藏區塊動畫 */
+    #identitySection { display: none; transition: all 0.3s ease; }
+
+    /* 重複提醒框 */
+    .hint{ margin-top:14px; background: var(--warm); border:1px solid #E6D5B8; border-radius: 16px; padding:16px; display: none; }
+    .btn{ appearance:none; border:none; cursor:pointer; border-radius: 999px; padding:10px 20px; font-weight:700; transition: transform .05s; }
+    .btnPrimary{ background: var(--ink); color:#fff; }
+    .btnGhost{ background:#fff; color:var(--ink); border:1px solid var(--ink); margin-left:10px; }
+
+    .success{ display:none; margin:18px 0; border-radius: var(--radius); background:#fff; box-shadow: var(--shadow); overflow:hidden; }
+  </style>
 </head>
-<body class="pb-10">
 
-<div class="max-w-3xl mx-auto px-4">
-    <header class="mt-6 relative rounded-3xl overflow-hidden h-[350px] shadow-2xl">
-        <img src="10686.jpg" class="w-full h-full object-cover" alt="訓練講解現場">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-        <div class="absolute bottom-8 left-8 right-8 text-white">
-            <h1 class="text-3xl font-bold">114年度員工座談會</h1>
-            <p class="opacity-90 mt-2 font-light tracking-wide">每一份建議，都是我們持續精進的力量</p>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div class="inner">
+        <div class="brand"><span>員工座談會意見平台</span><span class="badge">內部使用</span></div>
+        <div class="badge" id="today"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <figure class="heroCard">
+        <img src="10686.jpg" alt="訓練講解現場" />
+        <div class="heroOverlay"></div>
+        <div class="heroText">
+          <div class="title">
+            <h1>每一份建議，都是精進的力量</h1>
+            <p>114年度員工座談會：透過您的聲音，淬鍊專業與堅持。</p>
+          </div>
         </div>
-    </header>
-
-    <section class="mt-8 bg-white p-6 rounded-2xl card-shadow border-l-8 border-[#2F4F4F]">
-        <p class="text-gray-700 leading-relaxed">
-            親愛的同仁您好：我們致力於建立一個更友善、更專業的工作環境。本平台提供您提出建言的管道，系統會同步對比歷年資料，協助您的聲音更精準地傳遞給決策團隊。
-        </p>
+      </figure>
     </section>
 
-    <div class="grid grid-cols-2 gap-4 mt-6">
-        <div class="relative rounded-2xl overflow-hidden h-48 shadow-lg">
-            <img src="10563.jpg" class="w-full h-full object-cover" alt="勤務現場">
-            <div class="absolute bottom-0 w-full bg-black/50 text-white text-xs py-2 text-center">勤務紀實：專業與守護</div>
-        </div>
-        <div class="relative rounded-2xl overflow-hidden h-48 shadow-lg">
-            <img src="10380.png" class="w-full h-full object-cover photo-bw" alt="艱困歷程">
-            <div class="absolute bottom-0 w-full bg-black/50 text-white text-xs py-2 text-center">歷程回顧：淬鍊與堅持</div>
-        </div>
-    </div>
-
-    <form class="mt-8 space-y-6">
-        
-        <div class="bg-white p-8 rounded-2xl card-shadow">
-            <label class="block text-lg font-bold text-gray-800 mb-4">1. 您本次提案是否具名？ <span class="text-red-600">*</span></label>
-            <div class="grid grid-cols-2 gap-4">
-                <button type="button" onclick="toggleIdentity(true)" id="btnNamed" class="border-2 border-gray-200 p-4 rounded-xl hover:border-red-600 transition-all font-medium text-gray-700">記名反映</button>
-                <button type="button" onclick="toggleIdentity(false)" id="btnAnon" class="border-2 border-gray-200 p-4 rounded-xl hover:border-red-600 transition-all font-medium text-gray-700">匿名反映</button>
-            </div>
+    <section class="section">
+      <div class="card">
+        <div class="cardHeader">
+          <div class="thumb"><img src="10563.jpg" alt="座談會情境" /></div>
+          <div><h2>填寫您的提案</h2><p class="sub">題目基底完整參照原始問卷格式</p></div>
         </div>
 
-        <div id="identitySection" class="bg-white p-8 rounded-2xl card-shadow space-y-6">
-            <div>
-                <label class="block font-bold text-gray-800 mb-2">2. 單位 <span class="text-red-600">*</span></label>
-                <input type="text" placeholder="例：訓練中心" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none">
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-bold text-gray-800 mb-2">3. 職稱 <span class="text-red-600">*</span></label>
-                    <input type="text" placeholder="例：隊員" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-                <div>
-                    <label class="block font-bold text-gray-800 mb-2">4. 姓名 <span class="text-red-600">*</span></label>
-                    <input type="text" placeholder="真實姓名" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none">
-                </div>
-            </div>
-        </div>
+        <div class="cardBody">
+          <label>1. 請問您本次提案是否具名？ <span style="color:red">*</span></label>
+          <div style="display:flex; gap:15px; margin-top:8px;">
+            <label style="margin:0; font-weight:400;"><input type="radio" name="identity" value="named" onclick="toggleIdentity(true)"> 記名反映</label>
+            <label style="margin:0; font-weight:400;"><input type="radio" name="identity" value="anon" onclick="toggleIdentity(false)"> 不記名 (匿名)</label>
+          </div>
 
-        <div class="bg-white p-8 rounded-2xl card-shadow">
-            <label class="block text-lg font-bold text-gray-800 mb-2">5. 建議事項 <span class="text-red-600">*</span></label>
-            <textarea id="suggestion" onblur="checkAI()" rows="4" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none" placeholder="請簡述您的建議案內容..."></textarea>
+          <div id="identitySection">
+            <label>2. 單位 <span style="color:red">*</span></label>
+            <input type="text" placeholder="例：訓練中心">
             
-            <div id="aiPrompt" class="hidden mt-4 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
-                <p class="text-sm font-bold text-amber-900 leading-none">💡 發現相似歷史提案 (113-05)</p>
-                <p class="text-xs text-amber-800 mt-2">針對您提到的項目，目前進度：局本部已完成審查。若您的建議有不同之處，請繼續填寫。</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div><label>3. 職稱 <span style="color:red">*</span></label><input type="text" placeholder="職稱"></div>
+              <div><label>4. 姓名 <span style="color:red">*</span></label><input type="text" placeholder="真實姓名"></div>
             </div>
+          </div>
+
+          <label>5. 建議事項 <span style="color:red">*</span></label>
+          <textarea id="suggestion" onblur="checkAI()" placeholder="請詳細說明您的建議或問題點..."></textarea>
+
+          <div class="hint" id="dupHint">
+            <strong>⚠ 系統提醒：</strong>偵測到歷年相似提案紀錄 (113-05)。
+            <p style="font-size:13px; margin:8px 0;">當時針對「教官津貼」案，目前進度：局本部簽核中。若您的事證不同，請繼續送出。</p>
+            <button class="btn btnPrimary" onclick="submitDemo()">確認送出重複議題</button>
+            <button class="btn btnGhost" onclick="hideHint()">回頭修改內容</button>
+          </div>
+
+          <label>6. 具體事證 / 建議方案</label>
+          <textarea placeholder="如公文編號、相關附件說明或您的具體解決方案..."></textarea>
+
+          <label>7. 附件</label>
+          <div style="border:2px dashed var(--border); border-radius:14px; padding:30px; text-align:center; color:var(--muted); font-size:13px; cursor:pointer;">
+            點擊或拖放檔案至此處上傳 (支援照片、PDF)
+          </div>
+
+          <div style="margin-top:25px;">
+            <button class="btn btnPrimary" style="width:100%; padding:15px; font-size:16px;" onclick="submitDemo()">送出建議事項</button>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="bg-white p-8 rounded-2xl card-shadow">
-            <label class="block text-lg font-bold text-gray-800 mb-2">6. 具體事證 / 建議方案</label>
-            <textarea rows="3" class="w-full border-gray-200 rounded-xl p-3 border focus:ring-2 focus:ring-red-500 outline-none" placeholder="請提供詳細背景、地點、法規依據或您的解決方案..."></textarea>
-        </div>
+    <section class="success" id="successBox">
+      <div style="padding:25px; border-bottom:1px solid var(--border);">
+        <h3 style="color:var(--ink);">感謝您的分享</h3>
+        <p>您的建議已成功收悉。謝謝您在繁忙勤務中願意留下寶貴建言，共同守護我們的環境。</p>
+      </div>
+      <img src="10380.png" style="width:100%; height:200px; object-fit:cover; filter:grayscale(60%) brightness(80%);" alt="艱困歷程" />
+    </section>
+  </main>
 
-        <div class="bg-white p-8 rounded-2xl card-shadow text-center">
-            <label class="block text-left text-lg font-bold text-gray-800 mb-4">7. 附件</label>
-            <div class="border-2 border-dashed border-gray-300 rounded-2xl p-8 hover:border-red-400 cursor-pointer transition-colors">
-                <p class="text-gray-400 text-sm">點擊或拖放檔案至此處上傳</p>
-            </div>
-        </div>
+  <script>
+    // 顯示今日日期
+    const d = new Date();
+    document.getElementById('today').textContent = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 
-        <button type="submit" class="w-full bg-fire-red text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-red-800 transition-all text-lg active:scale-95">
-            送出建議事項
-        </button>
-    </form>
-
-    <footer class="text-center mt-12 text-gray-400 text-xs">
-        臺北市政府消防局 訓練中心 敬啟
-    </footer>
-</div>
-
-<script>
+    // 題目 1 邏輯：具名才顯示個人資料
     function toggleIdentity(isNamed) {
-        const section = document.getElementById('identitySection');
-        const bNamed = document.getElementById('btnNamed');
-        const bAnon = document.getElementById('btnAnon');
-
-        if (isNamed) {
-            section.style.display = 'block';
-            bNamed.classList.add('border-red-600', 'bg-red-50');
-            bAnon.classList.remove('border-red-600', 'bg-red-50');
-        } else {
-            section.style.display = 'none';
-            bAnon.classList.add('border-red-600', 'bg-red-50');
-            bNamed.classList.remove('border-red-600', 'bg-red-50');
-        }
+      document.getElementById('identitySection').style.display = isNamed ? 'block' : 'none';
     }
 
+    // 題目 5 邏輯：模擬 AI 攔截
     function checkAI() {
-        const val = document.getElementById('suggestion').value;
-        const prompt = document.getElementById('aiPrompt');
-        if (val.includes('教官') || val.includes('津貼')) {
-            prompt.classList.remove('hidden');
-        } else {
-            prompt.classList.add('hidden');
-        }
+      const val = document.getElementById('suggestion').value;
+      if (val.includes('教官') || val.includes('津貼')) {
+        document.getElementById('dupHint').style.display = 'block';
+      }
     }
-</script>
+
+    function hideHint() { document.getElementById('dupHint').style.display = 'none'; }
+
+    // 送出 Demo
+    function submitDemo() {
+      document.querySelector('.section').style.display = 'none';
+      document.getElementById('successBox').style.display = 'block';
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+  </script>
 </body>
 </html>
