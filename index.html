@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>114年度員工座談會提案平台</title>
+  <title>115年度員工座談會提案平台</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -31,12 +31,12 @@
     }
     .siren-active {
       display: block !important;
-      animation: sirenFlash 0.2s infinite;
+      animation: sirenFlash 0.15s infinite;
     }
     @keyframes sirenFlash {
-      0% { background: rgba(255, 0, 0, 0.2); }
-      50% { background: rgba(0, 0, 255, 0.2); }
-      100% { background: rgba(255, 0, 0, 0.2); }
+      0% { background: rgba(255, 0, 0, 0.3); }
+      50% { background: rgba(0, 0, 255, 0.3); }
+      100% { background: rgba(255, 0, 0, 0.3); }
     }
 
     .container { width: min(1100px, 94vw); margin: 0 auto; padding-bottom: 50px; }
@@ -45,30 +45,33 @@
     .inner { display: flex; align-items: center; justify-content: space-between; }
     .brand { font-weight: 700; color: var(--deep-brown); font-size: 22px; }
 
-    /* Hero 區域：標題 42px */
+    /* Hero 區域修正：改善標題排版 */
     .hero { margin-top: 20px; }
-    .heroCard { position: relative; overflow: hidden; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); height: 480px; background: #eee; }
+    .heroCard { position: relative; overflow: hidden; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); height: 500px; background: #eee; }
     .heroCard img { width: 100%; height: 100%; object-fit: cover; }
-    .heroText { position: absolute; left: 40px; right: 40px; bottom: 40px; }
-    .heroText .title { background: rgba(255, 252, 248, 0.96); border-radius: var(--radius-md); padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-    .heroText h1 { font-size: 42px; color: var(--deep-brown); margin: 0; line-height: 1.2; letter-spacing: 1px; }
+    .heroOverlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(107, 83, 68, 0) 0%, rgba(107, 83, 68, 0.6) 100%); }
+    .heroText { position: absolute; left: 0; right: 0; bottom: 40px; padding: 0 40px; }
+    .heroText .title { background: rgba(255, 252, 248, 0.96); border-radius: var(--radius-md); padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); max-width: 800px; }
+    .heroText h1 { font-size: 42px; color: var(--deep-brown); margin: 0; line-height: 1.3; font-weight: 700; }
+    .heroText p { margin-top: 15px; color: var(--warm-brown); font-size: 20px; font-weight: 500; }
 
     /* 表單區塊 */
     .section { margin: 30px 0; padding: 50px; background: var(--warm-white); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-soft); }
     .section-title h2 { font-size: 34px; color: var(--deep-brown); margin-bottom: 10px; }
-    label { display: block; font-weight: 700; font-size: 20px; margin: 25px 0 10px; }
-    input, textarea { width: 100%; border: 2px solid var(--border); border-radius: 15px; padding: 20px; font-size: 18px; outline: none; font-family: inherit; }
+    label { display: block; font-weight: 700; font-size: 20px; margin: 30px 0 10px; }
+    .required-mark { color: var(--coral); margin-left: 4px; }
+    input, textarea { width: 100%; border: 2px solid var(--border); border-radius: 15px; padding: 20px; font-size: 18px; outline: none; font-family: inherit; transition: border 0.3s; }
     input:focus, textarea:focus { border-color: var(--soft-orange); box-shadow: 0 0 0 5px rgba(255, 176, 136, 0.15); }
 
-    /* AI 比對結果框 */
+    /* AI 結果提示框 */
     .hint { margin: 30px 0; background: white; border: 4px solid var(--soft-orange); border-radius: var(--radius-md); padding: 40px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-    .hint-title { font-size: 26px; font-weight: 700; color: #e67e22; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .hint-title { font-size: 26px; font-weight: 700; color: #e67e22; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
     .hint-text { font-size: 19px; background: #fffaf0; padding: 25px; border-radius: 15px; margin-bottom: 25px; border-left: 8px solid var(--soft-orange); line-height: 1.8; }
 
-    /* 表格 RWD 處理 */
+    /* 表格設計 */
     .table-wrapper { overflow-x: auto; margin-top: 20px; border-radius: 12px; border: 1px solid var(--border); }
     .history-table { width: 100%; border-collapse: collapse; min-width: 700px; font-size: 17px; }
-    .history-table th { background: var(--coral); color: white; padding: 18px; text-align: left; font-weight: 700; }
+    .history-table th { background: var(--coral); color: white; padding: 18px; text-align: left; }
     .history-table td { padding: 18px; border-bottom: 1px solid var(--border); background: white; vertical-align: top; }
 
     /* 按鈕樣式 */
@@ -84,65 +87,76 @@
     @media (max-width: 768px) {
       .heroText h1 { font-size: 30px; }
       .heroText .title { padding: 25px; }
+      .heroText { padding: 0 20px; }
       .section { padding: 30px; }
       .heroCard { height: 350px; }
-      .brand { font-size: 18px; }
     }
   </style>
 </head>
 <body>
   <!-- 警示特效層 -->
   <div id="sirenOverlay"></div>
-  <!-- 警示音效 (使用短促嗶聲) -->
-  <audio id="sirenSound" src="https://www.soundjay.com/buttons/beep-01a.mp3" preload="auto"></audio>
+  <!-- 警示音效 -->
+  <audio id="sirenSound" preload="auto">
+    <source src="https://actions.google.com/sounds/v1/emergency/emergency_siren_short.ogg" type="audio/ogg">
+    <source src="https://www.soundjay.com/buttons/beep-01a.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="topbar"><div class="container"><div class="inner"><div class="brand">💬 員工座談會意見平台</div><div id="today" style="font-weight:700;"></div></div></div></div>
   
   <main class="container">
     <section class="hero">
-      <figure class="heroCard"><img src="./1770205128981.jpg" alt="座談會主視覺"/></figure>
-      <div class="heroText"><div class="title"><h1>每一份建議，都是成長的力量</h1><p>透過您的聲音，讓我們一起建設更美好的工作環境 💪</p></div></div>
+      <figure class="heroCard">
+        <img src="./1770205128981.jpg" alt="Hero"/>
+        <div class="heroOverlay"></div>
+      </figure>
+      <div class="heroText">
+        <div class="title">
+          <h1>每一份建議，都是成長的力量</h1>
+          <p>透過您的聲音，讓我們一起建設更美好的工作環境 💪</p>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="formSection">
-      <div class="section-title"><h2>填寫您的提案</h2><p style="color:var(--text-light); font-size:16px;">💡 送出後系統將自動檢索歷年相似案件提供您參考</p></div>
+      <div class="section-title"><h2>填寫您的提案</h2><p style="color:var(--warm-brown); font-size:16px; margin-top:5px;">💡系統將比對歷年相似紀錄</p></div>
       
-      <label>1. 請問提案是否具名？ <span style="color:var(--coral)">*</span></label>
+      <label>1. 請問提案是否具名？ <span class="required-mark">*</span></label>
       <div style="display:flex; gap:40px; margin-bottom:20px;">
         <!-- 優先記名：預設 checked -->
-        <label style="margin:0"><input type="radio" name="identity" value="named" checked onclick="toggleId(true)"> 記名反映</label>
-        <label style="margin:0"><input type="radio" name="identity" value="anon" onclick="toggleId(false)"> 不記名反映</label>
+        <label style="margin:0; cursor:pointer;"><input type="radio" name="identity" value="named" checked onclick="toggleId(true)"> 記名反映</label>
+        <label style="margin:0; cursor:pointer;"><input type="radio" name="identity" value="anon" onclick="toggleId(false)"> 不記名反映</label>
       </div>
 
-      <!-- 預設展開 (style="display:block") -->
+      <!-- 預設展開 -->
       <div id="identitySection" style="display:block;">
         <label>單位 / 職稱 / 姓名</label>
         <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:20px;">
           <input type="text" id="dept" placeholder="單位 (如: 人事室)">
           <input type="text" id="jobTitle" placeholder="職稱">
-          <input type="text" id="userName" placeholder="真實姓名">
+          <input type="text" id="userName" placeholder="姓名">
         </div>
       </div>
 
-      <label>5. 建議事項 <span style="color:var(--coral)">*</span></label>
-      <textarea id="suggestion" rows="6" placeholder="請詳細敘述您的建議或遭遇之問題..."></textarea>
+      <label>5. 建議事項 <span class="required-mark">*</span></label>
+      <textarea id="suggestion" rows="6" placeholder="請詳細說明您的建議或遭遇之問題點..."></textarea>
 
       <!-- AI 比對結果區 -->
       <div class="hint" id="dupHint">
         <div class="hint-title">🔔 歷次座談會相關紀錄檢索結果</div>
-        <div id="aiSummary" class="hint-text">正在調閱檔案庫...</div>
+        <div id="aiSummary" class="hint-text">正在調閱檔案庫進行比對...</div>
         <div class="table-wrapper"><div id="historyTable"></div></div>
         
         <!-- 二次確認區 -->
         <div id="reconfirmZone" style="display:none; margin-top:35px; border-top: 3px dashed #ff7675; padding-top:30px;">
-            <div style="color:#d63031; font-weight:700; font-size:22px; margin-bottom:15px;">⚠️ 提醒：此議題已有相關紀錄</div>
-            <p style="color:var(--text-light); margin-bottom:20px;">若您的事證或訴求與上述紀錄不同，請點擊下方按鈕堅持送出。</p>
-            <button class="btn btnDanger" id="forceSubmitBtn" onclick="finalSave()">確認內容無誤，堅持送出建議</button>
+            <div style="color:#d63031; font-weight:700; font-size:22px; margin-bottom:15px;">⚠️ 提醒：系統發現已有相關討論紀錄</div>
+            <p style="color:var(--text-light); margin-bottom:20px;">若您的建議有不同之處或新事證，請按下方按鈕堅持送出。</p>
+            <button class="btn btnDanger" id="forceSubmitBtn" onclick="handlePersistSubmit()">堅持送出此建議</button>
         </div>
       </div>
 
-      <label>6. 具體事證 / 建議方案</label>
-      <textarea id="evidence" rows="4" placeholder="如有具體事證、數據或建議之解決方案請在此說明..."></textarea>
+      <label>6. 具體事證 / 建議方案 <span class="required-mark">*</span></label>
+      <textarea id="evidence" rows="4" placeholder="請列出具體數據、相關事證或您的建議方案（必填）"></textarea>
 
       <button class="btn btnPrimary" id="submitBtn" onclick="handleInitialSubmit()">💌 送出建議事項</button>
     </section>
@@ -150,8 +164,8 @@
     <!-- 成功畫面 -->
     <section class="success" id="successBox">
       <div style="font-size: 100px; margin-bottom: 20px;">🎉</div>
-      <h3>提交成功！感謝您的參與</h3>
-      <p style="font-size:22px; margin:30px 0;">您的寶貴建言已妥善存入系統，我們將認真研議。💚</p>
+      <h3>提交成功！感謝參與</h3>
+      <p style="font-size:22px; margin:30px 0;">您的寶貴建言已存入系統，我們將認真研議。💚</p>
       <img src="./1769910482662.jpg" style="width:100%; max-width:600px; border-radius:24px; box-shadow: var(--shadow-soft);">
     </section>
   </main>
@@ -159,76 +173,86 @@
   <script>
     const GAS_URL = "https://script.google.com/macros/s/AKfycbzkVW4Fna1S2s38oWelc26FaoEUCE8UUoZHYlq00KGUTLBZ-VbHPavnjtCj1lCZG45i/exec";
     
-    // 初始化日期
     document.getElementById('today').textContent = `📅 ${new Date().toLocaleDateString('zh-TW', {year:'numeric', month:'2-digit', day:'2-digit'})}`;
 
     function toggleId(s) { document.getElementById('identitySection').style.display = s ? 'block' : 'none'; }
 
-    // 第一階段：送出比對
+    // 第一次點擊：單純顯示數據
     async function handleInitialSubmit() {
-      const q = document.getElementById('suggestion').value.trim();
-      if (!q) return alert("請輸入建議事項內容");
+      const suggestion = document.getElementById('suggestion').value.trim();
+      const evidence = document.getElementById('evidence').value.trim();
+      
+      if (!suggestion || !evidence) {
+          alert("請填寫「建議事項」與「具體事證」，兩者皆為必填。");
+          return;
+      }
 
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
-      btn.innerText = "🔍 正在檢索歷年數據比對中...";
+      btn.innerText = "🔍 正在搜尋歷史紀錄...";
 
       document.getElementById('dupHint').style.display = 'block';
-      document.getElementById('aiSummary').innerText = "正在為您比對歷年會議紀錄，請稍候...";
-      
-      // 平滑捲動到結果區
+      document.getElementById('aiSummary').innerText = "正在穿越時空調閱歷次會議紀錄，請稍候...";
       window.scrollTo({ top: document.getElementById('dupHint').offsetTop - 100, behavior: 'smooth' });
 
       try {
-        const res = await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "query", query: q }) });
+        const res = await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "query", query: suggestion }) });
         const json = await res.json();
         
         if (json.status === "success") {
           document.getElementById('aiSummary').innerText = json.data.summary;
           
           if (json.data.history && json.data.history.length > 0) {
-            // 渲染表格
-            let h = '<table class="history-table"><thead><tr><th>會議日期</th><th>訴求摘要</th><th>辦理結果 (精簡)</th></tr></thead><tbody>';
+            let h = '<table class="history-table"><thead><tr><th>會議日期</th><th>訴求摘要</th><th>辦理結果</th></tr></thead><tbody>';
             json.data.history.forEach(item => {
               h += `<tr><td><b>${item.date}</b></td><td>${item.proposal}</td><td>${item.conclusion}</td></tr>`;
             });
             document.getElementById('historyTable').innerHTML = h + '</tbody></table>';
             
-            // 觸發警示特效與二次確認鈕
-            triggerSiren();
+            // 顯示「堅持送出」按鈕，但不閃爍
             document.getElementById('reconfirmZone').style.display = 'block';
             btn.style.display = 'none'; 
           } else {
-            // 無重複，直接存檔
+            // 若完全沒重複，直接幫他存檔
             await finalSave();
           }
         }
       } catch (e) {
-        alert("連線異常，請稍後再試");
+        alert("比對連線異常，建議您直接重新整理網頁再試一次。");
         btn.disabled = false;
         btn.innerText = "💌 送出建議事項";
       }
     }
 
-    // 警示燈閃爍與音效
+    // 第二次點擊：堅持送出，這才觸發聲光
+    async function handlePersistSubmit() {
+        triggerSiren(); // 現在才閃爍 + 音效
+        
+        // 稍微延遲讓視覺效果被看見後再存檔
+        const forceBtn = document.getElementById('forceSubmitBtn');
+        forceBtn.disabled = true;
+        forceBtn.innerText = "⚠️ 警示確認中...";
+        
+        setTimeout(async () => {
+            await finalSave();
+        }, 1500);
+    }
+
+    // 警示燈閃爍與音效播放
     function triggerSiren() {
       const overlay = document.getElementById('sirenOverlay');
       const sound = document.getElementById('sirenSound');
+      
       overlay.classList.add('siren-active');
-      sound.play().catch(e => console.log("Sound interaction required"));
+      sound.volume = 0.5;
+      sound.play().catch(e => console.log("Sound interaction blocked"));
       
       // 3秒後停止閃爍
       setTimeout(() => { overlay.classList.remove('siren-active'); }, 3000);
     }
 
-    // 第二階段：正式存檔
+    // 核心存檔邏輯
     async function finalSave() {
-      const forceBtn = document.getElementById('forceSubmitBtn');
-      if (forceBtn) {
-          forceBtn.disabled = true;
-          forceBtn.innerText = "🚀 正在存檔中...";
-      }
-
       const formData = {
         identity: document.querySelector('input[name="identity"]:checked').value,
         dept: document.getElementById('dept').value,
@@ -247,10 +271,11 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       } catch (e) {
-        alert("存檔失敗，請檢查網路");
+        alert("存檔失敗，請確認網路連線。");
+        const forceBtn = document.getElementById('forceSubmitBtn');
         if (forceBtn) {
             forceBtn.disabled = false;
-            forceBtn.innerText = "確認內容無誤，堅持送出建議";
+            forceBtn.innerText = "堅持送出此建議";
         }
       }
     }
