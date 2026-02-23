@@ -34,14 +34,28 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* 替換：讓背景的漸層色暈染更明顯、範圍更大 */
     body {
       font-family: 'Noto Sans TC', sans-serif;
       color: var(--text-main);
       background: var(--bg-gradient);
+      background-image: radial-gradient(circle at top right, rgba(255, 123, 84, 0.18), transparent 60%),
+                        radial-gradient(circle at bottom left, rgba(255, 184, 150, 0.25), transparent 60%);
+      background-attachment: fixed;
       line-height: 1.8;
       font-size: 18px;
       overflow-x: hidden;
       min-height: 100vh;
+    }
+
+    /* 新增：檔案拖拉區塊的互動樣式 */
+    .upload-area {
+      border: 2px dashed var(--coral); padding: 40px; text-align: center; 
+      background: rgba(255,123,84,0.05); border-radius: var(--radius-md); 
+      cursor: pointer; color: var(--coral-dark); font-weight: 700; transition: all 0.3s;
+    }
+    .upload-area:hover, .upload-area.dragover {
+      background: rgba(255,123,84,0.15); border-color: var(--danger); transform: scale(1.02);
     }
 
     /* 警示燈閃爍層 */
@@ -298,9 +312,16 @@
       <textarea id="evidence" rows="4" placeholder="請列出具體數據、相關公文或您心目中的解決方案（必填）"></textarea>
 
       <label>7. 附件 (選填)</label>
-      <div style="border: 2px dashed var(--primary); padding: 40px; text-align: center; background: rgba(255,123,84,0.03); border-radius: var(--radius-md); cursor: pointer; color: var(--primary-hover); font-weight: 700; transition: 0.3s;" onclick="alert('附件將隨表單自動存檔')" onmouseover="this.style.background='rgba(255,123,84,0.08)'" onmouseout="this.style.background='rgba(255,123,84,0.03)'">
-        <div style="font-size: 36px; margin-bottom: 10px;">📎</div>點擊或拖放檔案上傳
+      
+      <!-- 替換：真實的拖拉上傳區域 -->
+      <div id="dropZone" class="upload-area">
+        <div style="font-size: 36px; margin-bottom: 8px;">📎</div>
+        <span id="dropZoneText">點擊或拖放檔案至此處上傳</span>
+        <!-- 隱藏的實際輸入元件 -->
+        <input type="file" id="fileInput" multiple style="display: none;">
       </div>
+      <!-- 顯示已選取檔案的列表 -->
+      <div id="fileList" style="margin-top: 15px; font-size: 17px; color: var(--deep-brown); font-weight: 500;"></div>
 
       <button class="btn btnPrimary" id="submitBtn" onclick="handleInitialSubmit()">💌 進行智能比對與送出</button>
 
@@ -450,6 +471,70 @@
         document.getElementById('loadingOverlay').style.display = 'none';
         alert("存檔失敗，請檢查網路連線。");
       }
+    }
+    // --- 新增：檔案點擊與拖拉互動邏輯 ---
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    let selectedFiles = []; // 存放使用者選擇的檔案
+
+    // 1. 點擊整個虛線框時，觸發隱藏的 input
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    // 2. 透過點擊視窗選擇檔案後
+    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+    // 3. 拖曳進入框內時的視覺變化
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    // 4. 拖曳離開框時恢復原狀
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    // 5. 放開滑鼠丟下檔案時
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    // 處理檔案的副程式
+    function handleFiles(files) {
+      if (files.length > 0) {
+        Array.from(files).forEach(file => selectedFiles.push(file));
+        updateFileList();
+      }
+    }
+
+    // 更新下方檔案清單的畫面
+    function updateFileList() {
+      if (selectedFiles.length === 0) {
+        fileList.innerHTML = "";
+        document.getElementById('dropZoneText').innerText = "點擊或拖放檔案至此處上傳";
+        return;
+      }
+      document.getElementById('dropZoneText').innerText = "可繼續點擊或拖放增加檔案";
+      
+      let html = '<ul style="list-style:none; padding:0;">';
+      selectedFiles.forEach((f, index) => {
+        html += `<li style="margin-bottom: 8px; background: rgba(255,255,255,0.6); padding: 10px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border);">
+                   <span>📄 ${f.name}</span>
+                   <span style="color:var(--danger); cursor:pointer; font-size:16px;" onclick="removeFile(${index}, event)">✖ 移除</span>
+                 </li>`;
+      });
+      html += '</ul>';
+      fileList.innerHTML = html;
+    }
+
+    // 移除單一檔案 (加 event.stopPropagation() 防止點擊時又觸發上傳窗)
+    function removeFile(index, event) {
+      event.stopPropagation();
+      selectedFiles.splice(index, 1);
+      updateFileList();
     }
   </script>
 </body>
