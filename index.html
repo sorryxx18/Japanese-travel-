@@ -163,7 +163,7 @@
     #identitySection { display: block; margin-top: 25px; padding: 30px; background: #FAFAF9; border-radius: var(--radius-lg); border: 1px dashed #DDCFC4; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
 
-    /* AI 智慧儀表板 (提示框) */
+    /* 儀表板 (提示框) */
     .hint { 
       margin-top: 40px; background: linear-gradient(180deg, #FFFFFF, #FFF9F5); 
       border: 2px solid var(--primary-light); border-radius: var(--radius-lg); 
@@ -287,7 +287,7 @@
     <section class="section" id="formSection">
       <div class="section-title">
         <h2>填寫您的提案</h2>
-        <p>💡 送出後，AI 系統將自動為您比對歷年相似紀錄</p>
+        <p>💡 送出後，系統將自動為您比對歷年相似紀錄</p>
       </div>
       
       <label>1. 請問提案是否具名？ <span class="required">*</span></label>
@@ -323,9 +323,9 @@
       <!-- 顯示已選取檔案的列表 -->
       <div id="fileList" style="margin-top: 15px; font-size: 17px; color: var(--deep-brown); font-weight: 500;"></div>
 
-      <button class="btn btnPrimary" id="submitBtn" onclick="handleInitialSubmit()">💌 進行智能比對與送出</button>
+      <button class="btn btnPrimary" id="submitBtn" onclick="handleInitialSubmit()">💌 進行比對與送出</button>
 
-      <!-- AI 比對結果 (預設隱藏) -->
+      <!-- 比對結果 (預設隱藏) -->
       <div class="hint" id="dupHint">
         <div class="hint-title">🤖 歷次座談會相關紀錄檢索結果</div>
         <div id="aiSummary" class="hint-text"></div>
